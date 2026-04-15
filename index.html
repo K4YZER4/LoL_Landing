@@ -1,0 +1,393 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ØRBIT#0B1T // ETHEREAL</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;700;900&amp;family=Manrope:wght@200;300;400;500&amp;family=Space+Grotesk:wght@300;400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              background: "#e2dee9",
+              "on-background": "#3a3445",
+              primary: "#b8accf",
+              secondary: "#d6cfe1",
+              surface: "rgba(226, 222, 233, 0.45)",
+              outline: "rgba(184, 172, 207, 0.3)",
+              "primary-container": "#d0c9df",
+              "on-surface": "#2d2837",
+            },
+            borderRadius: {
+              DEFAULT: "0px",
+              lg: "4px",
+              xl: "8px",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Epilogue"],
+              body: ["Manrope"],
+              label: ["Space Grotesk"],
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        .material-symbols-outlined {
+          font-variation-settings:
+            "FILL" 0,
+            "wght" 300,
+            "GRAD" 0,
+            "opsz" 24;
+        }
+      }
+      .ethereal-glow {
+        text-shadow:
+          0 0 20px rgba(255, 255, 255, 0.8),
+          0 0 40px rgba(184, 172, 207, 0.6);
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #e2dee9;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #b8accf;
+      }
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://lh3.googleusercontent.com/aida/ADBb0ugJnk66SwxqOusthvDtOYwFj9hd67RWM7XbgNG-t0zg1w5d_r79vZ9bUG1Fmhnh2bbcgFUQO-cRGjbvn2AcayiMBF9aYyfYTSGnpqeBjGd-iaFuxKgYxRHF9mrcEchJ-OqqLhLg8-0W5Dwu8XkJNqpS0D6cvq-hqcK4wAqpnJSUEUzL7tgRVar6DDyxgdKcQeR8lILxVcCGnsUnJAgYFjYUS9tHRlfVkT9E2xKW9oTgUC-JBHoz-PruuJPiDxp1a1aU1DYk9gxQBCQ");
+        background-size: cover;
+        background-position: center 20%;
+        z-index: 1;
+      }
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at center,
+          rgba(226, 222, 233, 0.4) 0%,
+          rgba(200, 195, 212, 0.7) 100%
+        );
+        z-index: 2;
+      }
+      .content-section {
+        background-color: #e2dee9;
+        background-image:
+          radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 255, 255, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 10% 30%,
+            rgba(184, 172, 207, 0.15) 0%,
+            transparent 40%
+          );
+      }
+      body {
+        background-color: #e2dee9;
+      }
+    </style>
+  </head>
+  <body
+    class="text-on-background font-body selection:bg-primary-container selection:text-on-background custom-scrollbar overflow-x-hidden"
+  >
+    <nav
+      class="fixed top-0 left-0 w-full z-50 bg-white/5 backdrop-blur-md border-b border-white/5 flex justify-between items-center px-8 py-6"
+    >
+      <div class="flex items-center gap-2">
+        <span
+          class="text-xl font-light tracking-[0.3em] text-white font-headline cursor-pointer drop-shadow-md"
+          >ØRBIT#0B1T</span
+        >
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="hover:bg-white/20 rounded-full transition-all p-2 active:scale-95 duration-200"
+        >
+          <span class="material-symbols-outlined text-white">visibility</span>
+        </button>
+      </div>
+    </nav>
+    <section
+      class="relative h-screen flex flex-col items-center justify-center overflow-hidden"
+    >
+      <div class="hero-background"></div>
+      <div class="hero-overlay"></div>
+      <div
+        class="relative z-10 w-full max-w-7xl px-6 flex flex-col items-center"
+      >
+        <div class="text-center mb-12 md:mb-16">
+          <h1
+            class="text-[12vw] md:text-[10rem] font-black tracking-[0.2em] text-white ethereal-glow leading-none opacity-100 uppercase font-headline select-none"
+          >
+            ØRBIT#0B1T
+          </h1>
+        </div>
+        <div class="w-full flex justify-end max-w-3xl">
+          <div class="glass-panel px-6 py-2 flex items-center gap-4">
+            <span
+              class="font-label text-[9px] tracking-widest text-on-background/70"
+              >LEVEL</span
+            >
+            <span class="font-headline font-light text-2xl text-on-background"
+              >99</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="relative z-20 content-section py-32 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div
+          class="flex flex-col md:flex-row justify-between items-baseline mb-24 gap-6"
+        >
+          <div>
+            <h2
+              class="font-headline text-4xl font-light uppercase tracking-[0.2em] mb-4 text-on-background"
+            >
+              Combat Protocol
+            </h2>
+            <p
+              class="font-label text-[10px] text-on-background/60 tracking-[0.4em] uppercase"
+            >
+              ELO ACTUAL EN INGLES
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+          <div
+            class="glass-panel p-10 relative group transition-all hover:bg-white/40"
+          >
+            <span
+              class="font-label text-[9px] tracking-[0.4em] text-on-background/60 block mb-8 uppercase"
+              >Efficiency</span
+            >
+            <div class="flex items-baseline gap-2">
+              <span class="font-headline text-6xl font-light text-on-surface"
+                >64</span
+              >
+              <span class="font-headline text-xl font-light text-on-surface/50"
+                >%</span
+              >
+            </div>
+            <div
+              class="mt-8 h-[1px] w-full bg-on-background/10 overflow-hidden"
+            >
+              <div class="h-full bg-primary/80 w-[64%]"></div>
+            </div>
+          </div>
+          <div
+            class="glass-panel p-10 relative group transition-all hover:bg-white/40 border-t-2 border-primary/40"
+          >
+            <span
+              class="font-label text-[9px] tracking-[0.4em] text-on-background/60 block mb-8 uppercase"
+              >Solo Clarity</span
+            >
+            <div class="flex flex-col">
+              <span
+                class="font-headline text-3xl font-light text-on-surface uppercase tracking-wider"
+                >Challenger</span
+              >
+              <span
+                class="font-label text-[10px] text-on-background/50 tracking-[0.2em] mt-2 uppercase"
+                >842 LP // PEAK NEURAL</span
+              >
+            </div>
+            <div class="absolute top-10 right-10">
+              <span class="material-symbols-outlined text-primary text-3xl"
+                >flare</span
+              >
+            </div>
+          </div>
+          <div
+            class="glass-panel p-10 relative group transition-all hover:bg-white/40"
+          >
+            <span
+              class="font-label text-[9px] tracking-[0.4em] text-on-background/60 block mb-8 uppercase"
+              >Collective</span
+            >
+            <div class="flex flex-col">
+              <span
+                class="font-headline text-3xl font-light text-on-surface uppercase tracking-wider"
+                >Grandmaster</span
+              >
+              <span
+                class="font-label text-[10px] text-on-background/50 tracking-[0.2em] mt-2 uppercase"
+                >420 LP // SYNCED SQUAD</span
+              >
+            </div>
+            <div class="absolute top-10 right-10">
+              <span
+                class="material-symbols-outlined text-on-background/30 text-3xl"
+                >all_inclusive</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div class="flex items-center gap-4 mb-12">
+            <span
+              class="font-label text-[9px] tracking-[0.5em] text-on-background/40 uppercase"
+              >Neural History</span
+            >
+            <div class="flex-1 h-[1px] bg-on-background/10"></div>
+          </div>
+          <div
+            class="glass-panel p-8 flex flex-col md:flex-row items-center justify-between gap-8 transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/5"
+          >
+            <div class="flex items-center gap-10 w-full md:w-auto">
+              <div
+                class="relative w-14 h-14 rounded-full overflow-hidden border border-white/40 bg-white/10"
+              >
+                <img
+                  alt="Minimal icon"
+                  class="w-full h-full object-cover opacity-70"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuASSHvEG_544y8fdw0zzjEp2oLy-v8MCB5gr0_mxNMDoFl-6ZqscpIOmEGAY2fI5mcPNMl2MgH3mYj83loEfb2NSF1wnzYVKsnFSHAUYd1Fe-O0M2w5rrSgcY6S417OeWkcfLrct1V3Bwvhas-LsDN4ieS7FDeOJWFISlViC1wi2JQ7s5NlgUv_xlONG3mqcre09I4aQYlSGqRRAYXiDbvggblI4gz6I8-QgyvXJAubtj6fTP3NS1lhk41kGg4F5eK1uMXmDTJGyk89"
+                />
+              </div>
+              <div>
+                <span
+                  class="block font-headline text-xl font-light text-on-surface uppercase tracking-widest"
+                  >Ascension</span
+                >
+                <span
+                  class="font-label text-[9px] text-on-background/50 uppercase tracking-widest"
+                  >RANKED SOLO // 24:12</span
+                >
+              </div>
+            </div>
+            <div class="flex items-center gap-16">
+              <div class="text-center">
+                <span
+                  class="block font-headline text-2xl font-light text-on-surface tracking-tighter"
+                  >14 / 2 / 8</span
+                >
+                <span
+                  class="font-label text-[9px] text-on-background/40 tracking-[0.2em] uppercase"
+                  >NEURAL RATIO</span
+                >
+              </div>
+              <div class="flex gap-2">
+                <div class="w-7 h-7 bg-white/30 border border-white/50"></div>
+                <div class="w-7 h-7 bg-white/30 border border-white/50"></div>
+                <div class="w-7 h-7 bg-white/30 border border-white/50"></div>
+                <div class="w-7 h-7 bg-white/30 border border-white/50"></div>
+              </div>
+            </div>
+            <div class="text-right hidden md:block">
+              <span
+                class="block font-label text-[10px] text-on-background/60 mb-1"
+                >+22 LP</span
+              >
+              <span
+                class="font-label text-[9px] text-primary font-bold uppercase tracking-widest"
+                >PEAK</span
+              >
+            </div>
+          </div>
+          <div
+            class="glass-panel p-8 flex flex-col md:flex-row items-center justify-between gap-8 opacity-70 transition-all hover:opacity-100"
+          >
+            <div class="flex items-center gap-10 w-full md:w-auto">
+              <div
+                class="relative w-14 h-14 rounded-full overflow-hidden border border-white/20 bg-white/5"
+              >
+                <div class="w-full h-full bg-on-background/10"></div>
+              </div>
+              <div>
+                <span
+                  class="block font-headline text-xl font-light text-on-background/70 uppercase tracking-widest"
+                  >Descent</span
+                >
+                <span
+                  class="font-label text-[9px] text-on-background/50 uppercase tracking-widest"
+                  >RANKED SOLO // 38:05</span
+                >
+              </div>
+            </div>
+            <div class="flex items-center gap-16">
+              <div class="text-center">
+                <span
+                  class="block font-headline text-2xl font-light text-on-surface/60 tracking-tighter"
+                  >8 / 9 / 12</span
+                >
+                <span
+                  class="font-label text-[9px] text-on-background/40 tracking-[0.2em] uppercase"
+                  >NEURAL RATIO</span
+                >
+              </div>
+              <div class="flex gap-2">
+                <div class="w-7 h-7 bg-white/10 border border-white/20"></div>
+                <div class="w-7 h-7 bg-white/10 border border-white/20"></div>
+                <div class="w-7 h-7 bg-white/10 border border-white/20"></div>
+                <div class="w-7 h-7 bg-white/10 border border-white/20"></div>
+              </div>
+            </div>
+            <div class="text-right hidden md:block">
+              <span
+                class="block font-label text-[10px] text-on-background/50 mb-1"
+                >-18 LP</span
+              >
+              <span
+                class="font-label text-[9px] text-on-background/30 uppercase tracking-widest"
+                >DISSIPATED</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="w-full py-12 bg-[#d6cfe1]/30 border-t border-white/20">
+      <div class="px-12 max-w-7xl mx-auto flex flex-col items-center">
+        <p
+          class="font-['Space_Grotesk'] text-[9px] uppercase tracking-[0.5em] text-on-background/40"
+        >
+          © 2024 ØRBIT PROJECT. REDEFINED AESTHETIC.
+        </p>
+      </div>
+    </footer>
+    <button class="fixed bottom-12 right-12 z-50 group">
+      <div
+        class="relative glass-panel p-5 transition-all duration-500 group-hover:translate-y-[-5px] active:scale-95 flex items-center justify-center rounded-full bg-white/20"
+      >
+        <span class="material-symbols-outlined text-on-background/80 text-xl"
+          >bubble_chart</span
+        >
+        <span
+          class="absolute right-full mr-6 glass-panel px-4 py-1.5 font-label text-[9px] tracking-[0.4em] text-on-background/80 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap uppercase"
+          >Dissolve</span
+        >
+      </div>
+      <div
+        class="absolute -z-10 inset-0 bg-primary/20 blur-2xl scale-0 group-hover:scale-150 transition-transform rounded-full"
+      ></div>
+    </button>
+  </body>
+</html>
