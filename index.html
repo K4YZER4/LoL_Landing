@@ -196,9 +196,12 @@
       .content-section.fade-in .color-shift-overlay {
         opacity: 0;
       }
-      body {
-        background-color: #e2dee9;
-      }
+       body {
+         background-color: #e2dee9;
+       }
+       body.loading {
+         overflow: hidden;
+       }
       /* Loading Screen */
       .loading-screen {
         position: fixed;
@@ -720,6 +723,15 @@
       ></div>
     </button>
     <script>
+      // Desactivar scroll durante loading screen
+      const body = document.body;
+      body.classList.add("loading");
+      
+      // Remover clase "loading" después de 2.5 segundos (cuando termina la animación)
+      setTimeout(() => {
+        body.classList.remove("loading");
+      }, 2500);
+
       // Fade-in/fade-out del video al hacer scroll + Squish effect + Navbar title
       const contentSection = document.querySelector(".content-section");
       const heroSection = document.querySelector(".hero-section");
