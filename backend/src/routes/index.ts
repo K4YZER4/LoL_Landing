@@ -1,3 +1,4 @@
 // Punto de entrada para routes
 import { obtenerPUUIDRouter } from "./obetenerUUID.routes.js";
-export { obtenerPUUIDRouter };
+import { obtenerNombreRouter } from "./obetenerNombre.routes.js";
+export { obtenerPUUIDRouter, obtenerNombreRouter };

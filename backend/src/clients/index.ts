@@ -1,2 +1,3 @@
 import { obtenerPUUID } from "./obtenerPUUID.clients.js";
-export { obtenerPUUID };
+import { obtenerNombre } from "./obtenerNombre.clients.js";
+export { obtenerPUUID, obtenerNombre };
