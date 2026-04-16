@@ -104,169 +104,184 @@
       .hero-section.squished {
         transform: scaleX(0.85) translateZ(0);
       }
-        .content-section {
-          background-color: #e2dee9;
-          position: relative;
-          transition: background-color 3s ease-in-out;
-        }
-        .content-section::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          pointer-events: none;
-          z-index: 0;
+      .content-section {
+        background-color: #e2dee9;
+        position: relative;
+        transition: background-color 3s ease-in-out;
+        transform-origin: center center;
+      }
+      .content-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
+      }
+      .content-section.fade-in::before {
+        opacity: 1;
+      }
+      .content-section > * {
+        position: relative;
+        z-index: 1;
+      }
+      video.background-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 1;
+      }
+      video.background-video::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(226, 222, 233, 0.8);
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 2.5s ease-in-out;
+        opacity: 1;
+      }
+      .content-section.fade-in video.background-video::before {
+        opacity: 0;
+      }
+      .color-shift-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(226, 222, 233, 0.8);
+        z-index: 0.5;
+        pointer-events: none;
+        transition: opacity 2.5s ease-in-out;
+        opacity: 1;
+      }
+      .content-section.fade-in .color-shift-overlay {
+        opacity: 0;
+      }
+      body {
+        background-color: #e2dee9;
+      }
+      /* Loading Screen */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #b5b0c0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        animation: fadeOutLoading 0.8s ease-in-out 2.5s forwards;
+        flex-direction: column;
+      }
+      @keyframes fadeOutLoading {
+        to {
           opacity: 0;
-          transition: opacity 2s ease-in-out;
+          visibility: hidden;
         }
-        .content-section.fade-in::before {
-          opacity: 1;
-        }
-        .content-section > * {
-          position: relative;
-          z-index: 1;
-        }
-        video.background-video {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
-          opacity: 1;
-        }
-        video.background-video::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(226, 222, 233, 0.8);
-          z-index: 1;
-          pointer-events: none;
-          transition: opacity 2.5s ease-in-out;
-          opacity: 1;
-        }
-        .content-section.fade-in video.background-video::before {
-          opacity: 0;
-        }
-        .color-shift-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(226, 222, 233, 0.8);
-          z-index: 0.5;
-          pointer-events: none;
-          transition: opacity 2.5s ease-in-out;
-          opacity: 1;
-        }
-        .content-section.fade-in .color-shift-overlay {
-          opacity: 0;
-        }
-       body {
-         background-color: #e2dee9;
-       }
-       /* Loading Screen */
-       .loading-screen {
-         position: fixed;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background-color: #b5b0c0;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         z-index: 9999;
-         animation: fadeOutLoading 0.8s ease-in-out 2.5s forwards;
-         flex-direction: column;
-       }
-       @keyframes fadeOutLoading {
-         to {
-           opacity: 0;
-           visibility: hidden;
-         }
-       }
-       .loading-title {
-         font-size: clamp(3rem, 12vw, 15rem);
-         font-weight: 900;
-         letter-spacing: 0.1em;
-         background-image: url("./assets/kanekiBackground.gif");
-         background-size: cover;
-         background-position: center;
-         -webkit-background-clip: text;
-         background-clip: text;
-         -webkit-text-fill-color: transparent;
-         text-transform: uppercase;
-         font-family: 'Epilogue', sans-serif;
-         line-height: 1;
-         margin: 0;
-         padding: 0;
-         -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-       }
-       .ranking-card-frame {
-         position: relative;
-         overflow: visible;
-       }
-       .ranking-card-frame::before {
-         content: "";
-         position: absolute;
-         top: -60px;
-         left: 55%;
-         transform: translateX(-50%);
-         width: 180%;
-         height: 200px;
-         background-image: url("./assets/flower2.png");
-         background-size: contain;
-         background-repeat: no-repeat;
-         background-position: center top;
-         pointer-events: none;
-         z-index: 10;
-       }
-       /* Hero Title Outline Style */
-       .loading-title {
-         font-size: clamp(3rem, 12vw, 15rem);
-         font-weight: 900;
-         letter-spacing: 0.2em;
-         background-image: url("./assets/kanekiBackground.gif");
-         background-size: cover;
-         background-position: center;
-         -webkit-background-clip: text;
-         background-clip: text;
-         -webkit-text-fill-color: transparent;
-         text-transform: uppercase;
-         font-family: 'Epilogue', sans-serif;
-         line-height: 1;
-         margin: 0;
-         padding: 0;
-         -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-         display: inline-block;
-         text-align: center;
-         vertical-align: middle;
-       }
-       .hero-title-outline {
-         -webkit-text-stroke: 2px white;
-         -webkit-text-fill-color: transparent;
-         color: transparent;
-         font-size: clamp(3rem, 12vw, 15rem);
-         font-weight: 900;
-         letter-spacing: 0.2em;
-         line-height: 1;
-         margin: 0;
-         padding: 0;
-         display: inline-block;
-       }
-     </style>
+      }
+      .loading-title {
+        font-size: clamp(3rem, 12vw, 15rem);
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        background-image: url("./assets/kanekiBackground.gif");
+        background-size: cover;
+        background-position: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        font-family: "Epilogue", sans-serif;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+      }
+      .ranking-card-frame {
+        position: relative;
+        overflow: visible;
+      }
+      .ranking-card-frame::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        left: 65%;
+        transform: translateX(-50%);
+        width: 300%;
+        height: 300px;
+        background-image: url("./assets/flower2.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+        pointer-events: none;
+        z-index: 10;
+      }
+      /* Hero Title Outline Style */
+      .loading-title {
+        font-size: clamp(3rem, 12vw, 15rem);
+        font-weight: 900;
+        letter-spacing: 0.2em;
+        background-image: url("./assets/kanekiBackground.gif");
+        background-size: cover;
+        background-position: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        font-family: "Epilogue", sans-serif;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .hero-title-outline {
+        -webkit-text-stroke: 2px white;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        font-size: clamp(3rem, 12vw, 15rem);
+        font-weight: 900;
+        letter-spacing: 0.2em;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+      }
+      #navbar-title {
+        transition: opacity 0.3s ease-in-out;
+        opacity: 0;
+        pointer-events: none;
+        font-size: 1.25rem;
+        -webkit-text-stroke: 1px white;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        user-select: text;
+      }
+      #navbar-title.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
   </head>
   <body
     class="text-on-background font-body selection:bg-primary-container selection:text-on-background custom-scrollbar overflow-x-hidden"
@@ -282,7 +297,9 @@
     >
       <div class="flex items-center gap-2">
         <span
-          class="text-xl font-light tracking-[0.3em] text-white font-headline cursor-pointer drop-shadow-md"
+          id="navbar-title"
+          class="text-xl font-light tracking-[0.3em] font-headline cursor-pointer drop-shadow-md hero-title-outline opacity-0 pointer-events-none"
+          style="display: inline-block"
           >ØRBIT#0B1T</span
         >
       </div>
@@ -302,13 +319,13 @@
       <div
         class="relative z-10 w-full max-w-7xl px-6 flex flex-col items-center"
       >
-         <div class="text-center">
-           <h1
-             class="font-black tracking-[0.2em] leading-none opacity-100 uppercase font-headline select-none hero-title-outline"
-           >
-             ØRBIT#0B1T
-           </h1>
-         </div>
+        <div class="text-center">
+          <h1
+            class="font-black tracking-[0.2em] leading-none opacity-100 uppercase font-headline select-none hero-title-outline"
+          >
+            ØRBIT#0B1T
+          </h1>
+        </div>
         <div class="w-full flex justify-end max-w-3xl">
           <div class="glass-panel px-6 py-2 flex items-center gap-4">
             <span
@@ -650,41 +667,59 @@
         class="absolute -z-10 inset-0 bg-primary/20 blur-2xl scale-0 group-hover:scale-150 transition-transform rounded-full"
       ></div>
     </button>
-     <script>
-      // Fade-in/fade-out del video al hacer scroll + Squish effect
-      const contentSection = document.querySelector('.content-section');
-      const heroSection = document.querySelector('.hero-section');
-      
+    <script>
+      // Fade-in/fade-out del video al hacer scroll + Squish effect + Navbar title
+      const contentSection = document.querySelector(".content-section");
+      const heroSection = document.querySelector(".hero-section");
+      const navbarTitle = document.querySelector("#navbar-title");
+
       // Observer para fade-in del video
-      const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            contentSection.classList.add('fade-in');
-          } else {
-            contentSection.classList.remove('fade-in');
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-      
+      const fadeObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              contentSection.classList.add("fade-in");
+            } else {
+              contentSection.classList.remove("fade-in");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        },
+      );
+
       fadeObserver.observe(contentSection);
-      
-      // Efecto de squish al hacer scroll - compresión horizontal progresiva
-      window.addEventListener('scroll', () => {
-        if (!heroSection) return;
-        
+
+      // Efecto de squish al hacer scroll + aparición del título en navbar
+      window.addEventListener("scroll", () => {
+        if (!heroSection || !contentSection) return;
+
         const scrollPosition = window.scrollY;
         const heroHeight = heroSection.offsetHeight;
-        
+
         // Calcula el porcentaje de scroll dentro del hero
-        const scrollPercentage = Math.min(scrollPosition / (heroHeight * 0.6), 1);
-        
-        // Interpola entre 1 (normal) y 0.75 (comprimido)
-        const scaleX = 1 - (scrollPercentage * 0.25);
-        
-        // Aplica la transformación directamente
-        heroSection.style.transform = `scaleX(${scaleX}) translateZ(0)`;
+        const scrollPercentage = Math.min(
+          scrollPosition / (heroHeight * 0.6),
+          1,
+        );
+
+        // Hero se comprime: interpola entre 1 (normal) y 0.95 (más sutil)
+        const heroScaleX = 1 - scrollPercentage * 0.05;
+
+        // Content se expande (inverso): interpola entre 0.95 y 1 (más sutil)
+        const contentScaleX = 0.95 + scrollPercentage * 0.05;
+
+        // Aplica las transformaciones
+        heroSection.style.transform = `scaleX(${heroScaleX}) translateZ(0)`;
+        contentSection.style.transform = `scaleX(${contentScaleX}) translateZ(0)`;
+
+        // Mostrar/ocultar título en navbar según el scroll
+        if (scrollPercentage > 0) {
+          navbarTitle.classList.add("visible");
+        } else {
+          navbarTitle.classList.remove("visible");
+        }
       });
     </script>
   </body>
