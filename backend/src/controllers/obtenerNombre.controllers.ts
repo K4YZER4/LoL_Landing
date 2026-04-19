@@ -4,7 +4,7 @@ export async function obtenerNombreController(req: Request, res: Response) {
   try {
     const { puuid } = req.params;
     const nombre = await obtenerNombreService(puuid as string);
-    return res.json();
+    return res.json({ nombre });
   } catch (error) {
     return res
       .status(500)
