@@ -1,0 +1,133 @@
+.currentEloSection,
+.arsenalSection {
+  z-index: 20;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: #e2dee9;
+  position: relative;
+  transition: background-color 3s ease-in-out;
+  transform-origin: center center;
+}
+
+.sectionContainer {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  font-family: "Epilogue", sans-serif;
+  font-size: 2.25rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+  color: #3a3445;
+}
+
+.sectionSubTitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  color: rgba(58, 52, 69, 0.6);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+.sectionBlockGap {
+  margin-bottom: 6rem;
+}
+
+.currentEloSection::before,
+.arsenalSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.currentEloSection.fade-in::before,
+.arsenalSection.fade-in::before {
+  opacity: 1;
+}
+
+.currentEloSection > *,
+.arsenalSection > * {
+  position: relative;
+  z-index: 1;
+}
+
+video.sectionBackgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 1;
+}
+
+video.sectionBackgroundVideo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(226, 222, 233, 0.8);
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 2.5s ease-in-out;
+  opacity: 1;
+}
+
+.sectionForegroundGif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.currentEloSection.fade-in video.sectionBackgroundVideo::before,
+.arsenalSection.fade-in video.sectionBackgroundVideo::before {
+  opacity: 0;
+}
+
+.sectionColorOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(226, 222, 233, 0.9);
+  z-index: 0.5;
+  pointer-events: none;
+  transition: opacity 2.5s ease-in-out;
+  opacity: 1;
+}
+
+.sectionColorOverlay.stronger {
+  background: rgba(226, 222, 233, 0.95);
+}
+
+.currentEloSection.fade-in .sectionColorOverlay,
+.arsenalSection.fade-in .sectionColorOverlay {
+  opacity: 0.97;
+}

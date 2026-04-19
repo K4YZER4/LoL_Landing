@@ -1,0 +1,68 @@
+.socialSection {
+  position: relative;
+  z-index: 20;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background: #e2dee9;
+}
+
+.socialSectionHeader {
+  margin-bottom: 4rem;
+}
+
+.socialSectionTitle {
+  font-family: "Epilogue", sans-serif;
+  font-size: 2.25rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+  color: #3a3445;
+}
+
+.socialSectionSubTitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  color: rgba(58, 52, 69, 0.6);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+.socialLinksRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.socialLinkButton {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s;
+}
+
+.socialLinkButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.socialLinkIcon {
+  color: rgba(58, 52, 69, 0.8);
+  font-size: 1.25rem;
+}
+
+.socialLinkButton:hover .socialLinkIcon {
+  color: #b8accf;
+}
+
+.socialLinkLabel {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: #3a3445;
+  text-transform: uppercase;
+}

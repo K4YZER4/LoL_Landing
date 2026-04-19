@@ -11,21 +11,14 @@ function App() {
   useEffect(() => {
     const body = document.body;
     body.classList.add("loading");
-    body.classList.add(
-      "text-on-background",
-      "font-body",
-      "selection:bg-primary-container",
-      "selection:text-on-background",
-      "custom-scrollbar",
-      "overflow-x-hidden"
-    );
+    body.classList.add("appBody", "appScrollbar");
 
     const loadingTimeout = setTimeout(() => {
       body.classList.remove("loading");
     }, 2500);
 
-    const contentSection = document.querySelector(".content-section");
-    const heroSection = document.querySelector(".hero-section");
+    const contentSection = document.querySelector(".currentEloSection");
+    const heroSection = document.querySelector(".heroSection");
     const navbarTitle = document.querySelector("#navbar-title");
 
     const fadeObserver = new IntersectionObserver(
@@ -68,7 +61,7 @@ function App() {
 
     window.addEventListener("scroll", handleScroll);
 
-    const rankingCards = document.querySelectorAll(".ranking-card");
+    const rankingCards = document.querySelectorAll(".historyMatchCard");
     rankingCards.forEach((card) => {
       card.addEventListener("mouseenter", () => {
         rankingCards.forEach((c) => {
@@ -90,12 +83,8 @@ function App() {
       fadeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
       body.classList.remove(
-        "text-on-background",
-        "font-body",
-        "selection:bg-primary-container",
-        "selection:text-on-background",
-        "custom-scrollbar",
-        "overflow-x-hidden"
+        "appBody",
+        "appScrollbar"
       );
     };
   }, []);

@@ -1,0 +1,76 @@
+.arsenalGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 3rem;
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .arsenalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.arsenalRolesCard {
+  padding: 2.5rem;
+}
+
+.arsenalSectionLabel {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: rgba(58, 52, 69, 0.6);
+  display: block;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.arsenalRoleBlock {
+  margin-bottom: 2rem;
+}
+
+.arsenalRoleHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.arsenalRoleLabel {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: rgba(58, 52, 69, 0.6);
+  text-transform: uppercase;
+}
+
+.arsenalRoleValue {
+  font-family: "Epilogue", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #2d2837;
+}
+
+.arsenalChampionsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.arsenalSectionKaneki {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 14rem;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .arsenalSectionKaneki {
+    width: 18rem;
+  }
+}

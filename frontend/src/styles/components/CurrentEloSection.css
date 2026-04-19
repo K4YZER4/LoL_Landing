@@ -1,0 +1,145 @@
+.currentEloHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .currentEloHeader {
+    flex-direction: row;
+  }
+}
+
+.currentEloCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 2rem;
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .currentEloCardsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.currentEloCard {
+  position: relative;
+  padding: 2.5rem;
+  transition: all 0.2s;
+}
+
+.currentEloCard:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.currentEloCardPrimary {
+  border-top: 2px solid rgba(184, 172, 207, 0.4);
+}
+
+.currentEloCardLabel {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: rgba(58, 52, 69, 0.6);
+  display: block;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.currentEloValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.currentEloValueNumber {
+  font-family: "Epilogue", sans-serif;
+  font-size: 3.75rem;
+  font-weight: 300;
+  color: #2d2837;
+}
+
+.currentEloValueUnit {
+  font-family: "Epilogue", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(45, 40, 55, 0.5);
+}
+
+.currentEloProgressTrack {
+  margin-top: 2rem;
+  height: 1px;
+  width: 100%;
+  background: rgba(58, 52, 69, 0.1);
+  overflow: hidden;
+}
+
+.currentEloProgressFill {
+  height: 100%;
+  width: 64%;
+  background: rgba(184, 172, 207, 0.8);
+}
+
+.currentEloRankWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.currentEloRankTier {
+  font-family: "Epilogue", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 300;
+  color: #2d2837;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.currentEloRankPoints {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  color: rgba(58, 52, 69, 0.5);
+  letter-spacing: 0.2em;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.currentEloCardIconWrap {
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+}
+
+.currentEloCardIconPrimary {
+  color: #b8accf;
+  font-size: 1.875rem;
+}
+
+.currentEloCardIconMuted {
+  color: rgba(58, 52, 69, 0.3);
+  font-size: 1.875rem;
+}
+
+.historyHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.historyHeaderLabel {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: rgba(58, 52, 69, 0.4);
+  text-transform: uppercase;
+}
+
+.historyHeaderLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(58, 52, 69, 0.1);
+}
