@@ -4,9 +4,11 @@ import {
   obtenerPUUIDRouter,
   obtenerHistorialRouter,
   obtenerNombreRouter,
+  obtenerUrlImagenesRouter,
 } from "./routes/index.js";
 dotenv.config();
 const app = express();
+app.use(obtenerUrlImagenesRouter);
 app.use(obtenerNombreRouter);
 app.use(obtenerPUUIDRouter);
 app.use(obtenerHistorialRouter);
