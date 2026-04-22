@@ -29,6 +29,12 @@ export interface ResumenPartidaConImagenes extends ResumenPartida {
   championIconUrl: string;
   itemsConUrls: string[];
   summonerSpellsConUrls: (string | null)[];
+}
+export interface ResumenStats {
   statsQueues: StatsQueues;
   top10Campeones: CampeonMasJugado[];
+}
+export interface ResumenPartidaStatsYImagenes {
+  respuesta: ResumenPartidaConImagenes[];
+  stats: ResumenStats;
 }

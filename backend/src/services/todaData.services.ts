@@ -8,16 +8,22 @@ import {
 import {
   ResumenPartida,
   ResumenPartidaConImagenes,
+  ResumenStats,
+  ResumenPartidaStatsYImagenes,
 } from "../types/resumenPartida.types.js";
 export async function todoDataPerfil(
   name: string,
   cantidadPartidas: number,
-): Promise<ResumenPartidaConImagenes[]> {
+): Promise<ResumenPartidaStatsYImagenes> {
   const puuid = await obtenerPUUIDService(name);
   const historialObtenido: ResumenPartida[] =
     await obtenerHistorialService(puuid);
   const statsQueues = calcularStatsQueues(historialObtenido);
-  const top10Campeones = calcularTop10Campeones(historialObtenido);
+  const top10Campeones = await calcularTop10Campeones(historialObtenido);
+  const stats: ResumenStats = {
+    statsQueues,
+    top10Campeones,
+  };
   const respuesta: ResumenPartidaConImagenes[] = [];
   for (let i = 0; i < cantidadPartidas; i++) {
     const partida = historialObtenido[i];
@@ -40,9 +46,7 @@ export async function todoDataPerfil(
       championIconUrl,
       itemsConUrls,
       summonerSpellsConUrls,
-      statsQueues,
-      top10Campeones,
     });
   }
-  return respuesta;
+  return { respuesta, stats };
 }

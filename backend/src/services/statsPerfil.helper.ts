@@ -1,5 +1,6 @@
 import { ResumenPartida } from "../types/resumenPartida.types.js";
 import { StatsQueues, CampeonMasJugado } from "../types/statsWinrate.types.js";
+import { getChampionIconUrl } from "../clients/obetenerUrlImagenes.clients.js";
 export function calcularStatsQueues(partidas: ResumenPartida[]): StatsQueues {
   let partidasSoloq = 0;
   let partidasFlex = 0;
@@ -40,9 +41,9 @@ export function calcularStatsQueues(partidas: ResumenPartida[]): StatsQueues {
   };
 }
 
-export function calcularTop10Campeones(
+export async function calcularTop10Campeones(
   partidas: ResumenPartida[],
-): CampeonMasJugado[] {
+): Promise<CampeonMasJugado[]> {
   const conteo: Record<string, { games: number; wins: number }> = {};
 
   for (const p of partidas) {
@@ -56,13 +57,22 @@ export function calcularTop10Campeones(
     if (p.win) conteo[champ].wins++;
   }
 
-  return Object.entries(conteo)
+  const top10Base = Object.entries(conteo)
     .map(([championName, { games, wins }]) => ({
       championName,
       games,
       wins,
-      winRate: (wins / games) * 100,
+      winRate: Number(((wins / games) * 100).toFixed(2)),
     }))
     .sort((a, b) => b.games - a.games)
     .slice(0, 10);
+
+  return await Promise.all(
+    top10Base.map(
+      async (campeon): Promise<CampeonMasJugado> => ({
+        ...campeon,
+        urlImagen: await getChampionIconUrl(campeon.championName),
+      }),
+    ),
+  );
 }

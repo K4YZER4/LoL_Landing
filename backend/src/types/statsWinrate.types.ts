@@ -11,6 +11,7 @@ export interface StatsQueues {
 
 export interface CampeonMasJugado {
   championName: string;
+  urlImagen: string;
   games: number;
   wins: number;
   winRate: number;
