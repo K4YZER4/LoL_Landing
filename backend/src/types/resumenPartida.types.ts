@@ -1,4 +1,8 @@
 // types.ts (por ejemplo)
+interface imagenesUrl {
+  championIconUrl: string;
+  itemsConUrls: string[]; // [item0Url..item6Url]
+}
 export interface ResumenPartida {
   matchId: string;
   queueId: number;
@@ -13,4 +17,9 @@ export interface ResumenPartida {
   assists: number;
 
   items: number[]; // [item0..item6]
+
+  summonerSpells: {
+    spell1Id: number; // summoner1Id
+    spell2Id: number; // summoner2Id
+  };
 }

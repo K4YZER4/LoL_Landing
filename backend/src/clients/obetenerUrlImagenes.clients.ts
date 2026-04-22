@@ -24,4 +24,48 @@ async function getItemIconUrl(itemId: number): Promise<string> {
   return `https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${itemId}.png`;
 }
 
-export { getChampionIconUrl, getItemIconUrl };
+interface SummonerSpellData {
+  id: string; // "SummonerFlash"
+  key: string; // "4"
+  name: string;
+}
+
+let SUMMONER_SPELLS_BY_ID: Map<number, SummonerSpellData> | null = null;
+
+// función interna para cargar el mapa solo una vez
+async function cargarMapaSummonerSpells(): Promise<
+  Map<number, SummonerSpellData>
+> {
+  if (SUMMONER_SPELLS_BY_ID) return SUMMONER_SPELLS_BY_ID;
+
+  const version = await cargarVersionDDragon();
+  const url = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`No se pudieron obtener summoner spells: ${res.status}`);
+  }
+
+  const data = (await res.json()) as {
+    data: Record<string, SummonerSpellData>;
+  };
+
+  SUMMONER_SPELLS_BY_ID = new Map(
+    Object.values(data.data).map((spell) => [Number(spell.key), spell]),
+  );
+
+  return SUMMONER_SPELLS_BY_ID;
+}
+
+// ESTA es la función que usarás: recibe spellId:number y retorna Promise<string | null>
+async function cargarSummonerSpells(spellId: number): Promise<string | null> {
+  const version = await cargarVersionDDragon();
+  const spellsMap = await cargarMapaSummonerSpells();
+
+  const spell = spellsMap.get(spellId);
+  if (!spell) return null;
+
+  const url = `https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`;
+  return url;
+}
+
+export { getChampionIconUrl, getItemIconUrl, cargarSummonerSpells };

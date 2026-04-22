@@ -59,6 +59,10 @@ export async function obtenerResumenPartida(
     assists: p.assists,
 
     items,
+    summonerSpells: {
+      spell1Id: p.summoner1Id,
+      spell2Id: p.summoner2Id,
+    },
   };
 
   return resumen;

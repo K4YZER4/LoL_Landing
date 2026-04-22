@@ -4,11 +4,11 @@ export async function validarChmpionYItem(
   res: Response,
   next: NextFunction,
 ) {
-  const { championId, itemId } = req.params;
-  if (!championId || !itemId) {
+  const { championId, itemId, spellsId } = req.params;
+  if (!championId || !itemId || !spellsId) {
     return res
       .status(400)
-      .json({ error: "El championId y itemId son requeridos" });
+      .json({ error: "El championId, itemId y spellsId son requeridos" });
   }
   next();
 }

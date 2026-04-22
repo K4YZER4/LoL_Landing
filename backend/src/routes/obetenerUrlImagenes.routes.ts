@@ -3,7 +3,7 @@ import { obtenerUrlImagenesController } from "../controllers/obtenerUrlImagenes.
 import { validarChmpionYItem } from "../middlewares/obtenerUrlImagenes.middlewares.js";
 export const obtenerUrlImagenesRouter = Router();
 obtenerUrlImagenesRouter.get(
-  "/imagenes/:championId/:itemId",
+  "/imagenes/:championId/:itemId/:spellsId",
   validarChmpionYItem,
   obtenerUrlImagenesController,
 );
