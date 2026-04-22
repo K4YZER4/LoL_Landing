@@ -1,3 +1,5 @@
+import { CampeonMasJugado, StatsQueues } from "./statsWinrate.types.js";
+
 // types.ts (por ejemplo)
 interface imagenesUrl {
   championIconUrl: string;
@@ -27,4 +29,6 @@ export interface ResumenPartidaConImagenes extends ResumenPartida {
   championIconUrl: string;
   itemsConUrls: string[];
   summonerSpellsConUrls: (string | null)[];
+  statsQueues: StatsQueues;
+  top10Campeones: CampeonMasJugado[];
 }

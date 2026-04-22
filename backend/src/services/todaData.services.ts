@@ -2,6 +2,10 @@ import { obtenerPUUIDService } from "./obetenerPUUID.services.js";
 import { obtenerHistorialService } from "./obtenerHistorial.services.js";
 import { obetenerImagenesService } from "./obetenerUrlImagenes.services.js";
 import {
+  calcularStatsQueues,
+  calcularTop10Campeones,
+} from "./statsPerfil.helper.js";
+import {
   ResumenPartida,
   ResumenPartidaConImagenes,
 } from "../types/resumenPartida.types.js";
@@ -12,41 +16,8 @@ export async function todoDataPerfil(
   const puuid = await obtenerPUUIDService(name);
   const historialObtenido: ResumenPartida[] =
     await obtenerHistorialService(puuid);
-  let cantidadPartidasJugadas = 0;
-  let victoriasSoloq = 0;
-  let derrotasSoloq = 0;
-  let victoriasFlex = 0;
-  let derrotasFlex = 0;
-  let winrateSoloq = 0;
-  let winrateFlex = 0;
-  for (const partida of historialObtenido) {
-    cantidadPartidasJugadas++;
-    switch (partida.queueId) {
-      case 420: // Solo/Duo
-        if (partida.win) {
-          victoriasSoloq++;
-        } else {
-          derrotasSoloq++;
-        }
-        break;
-      case 440: // Flex
-        if (partida.win) {
-          victoriasFlex++;
-        } else {
-          derrotasFlex++;
-        }
-        break;
-    }
-  }
-  winrateSoloq =
-    victoriasSoloq > 0
-      ? Math.round((victoriasSoloq / (victoriasSoloq + derrotasSoloq)) * 100)
-      : 0;
-  winrateFlex =
-    victoriasFlex > 0
-      ? Math.round((victoriasFlex / (victoriasFlex + derrotasFlex)) * 100)
-      : 0;
-  console.log(winrateFlex, winrateSoloq);
+  const statsQueues = calcularStatsQueues(historialObtenido);
+  const top10Campeones = calcularTop10Campeones(historialObtenido);
   const respuesta: ResumenPartidaConImagenes[] = [];
   for (let i = 0; i < cantidadPartidas; i++) {
     const partida = historialObtenido[i];
@@ -69,6 +40,8 @@ export async function todoDataPerfil(
       championIconUrl,
       itemsConUrls,
       summonerSpellsConUrls,
+      statsQueues,
+      top10Campeones,
     });
   }
   return respuesta;
