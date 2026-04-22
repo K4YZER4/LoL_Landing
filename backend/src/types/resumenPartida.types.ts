@@ -23,3 +23,8 @@ export interface ResumenPartida {
     spell2Id: number; // summoner2Id
   };
 }
+export interface ResumenPartidaConImagenes extends ResumenPartida {
+  championIconUrl: string;
+  itemsConUrls: string[];
+  summonerSpellsConUrls: (string | null)[];
+}

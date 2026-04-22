@@ -2,7 +2,7 @@ import { ResumenPartida } from "../types/index.js";
 import { obtenerResumenPartida } from "./obtenerResumenPartida.clients.js";
 export async function obtenerResumenUltimasPartidas(
   puuid: string,
-  count = 20,
+  count = 40,
 ): Promise<ResumenPartida[]> {
   const idsUrl = `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${count}`;
 
