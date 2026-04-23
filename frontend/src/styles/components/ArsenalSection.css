@@ -62,7 +62,7 @@
   left: 0;
   bottom: 0;
   z-index: 3;
-  width: 14rem;
+  width: 17rem;
   height: auto;
   object-fit: contain;
   pointer-events: none;
@@ -71,6 +71,6 @@
 
 @media (min-width: 768px) {
   .arsenalSectionKaneki {
-    width: 18rem;
+    width: 35rem;
   }
 }
