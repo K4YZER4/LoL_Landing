@@ -27,7 +27,7 @@ export interface ResumenPartida {
 }
 export interface ResumenPartidaConImagenes extends ResumenPartida {
   championIconUrl: string;
-  itemsConUrls: string[];
+  itemsConUrls: (string | null)[];
   summonerSpellsConUrls: (string | null)[];
 }
 export interface ResumenStats {

@@ -19,7 +19,10 @@ async function getChampionIconUrl(championName: string): Promise<string> {
   const version = await cargarVersionDDragon();
   return `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${championName}.png`;
 }
-async function getItemIconUrl(itemId: number): Promise<string> {
+async function getItemIconUrl(itemId: number): Promise<string | null> {
+  if (itemId === 0) {
+    return null; // sin item
+  }
   const version = await cargarVersionDDragon();
   return `https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${itemId}.png`;
 }
