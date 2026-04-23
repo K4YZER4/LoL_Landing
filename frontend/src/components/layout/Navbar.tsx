@@ -4,7 +4,7 @@ export default function Navbar() {
       <div className="navbarLeft">
         <span
           id="navbar-title"
-          className="navbarTitle heroTitleOutline visible"
+          className="navbarTitle heroTitleOutline"
           style={{ display: "inline-block" }}
         >
           ØRBIT#0B1T

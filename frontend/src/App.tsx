@@ -52,7 +52,11 @@ function App() {
       heroSection.style.transform = `scaleX(${heroScaleX}) translateZ(0)`;
       contentSection.style.transform = `scaleX(${contentScaleX}) translateZ(0)`;
 
-      navbarTitle?.classList.add("visible");
+      if (scrollPercentage >= 0.85) {
+        navbarTitle?.classList.add("visible");
+      } else {
+        navbarTitle?.classList.remove("visible");
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
