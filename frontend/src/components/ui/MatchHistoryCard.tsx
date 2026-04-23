@@ -1,4 +1,15 @@
-export default function MatchHistoryCard({ match }) {
+import type { MatchHistoryViewModel } from "../../types/match";
+
+interface MatchHistoryCardProps {
+  match: MatchHistoryViewModel;
+}
+
+export default function MatchHistoryCard({ match }: MatchHistoryCardProps) {
+  const nonNullItems = match.itemUrls.filter((itemUrl) => itemUrl !== null);
+  const nullItems = Array.from({ length: match.itemUrls.length - nonNullItems.length }, () => null);
+  const orderedItems = [...nonNullItems, ...nullItems] as MatchHistoryViewModel["itemUrls"];
+  const buildSlots = [...match.spellUrls, ...orderedItems];
+
   return (
     <div className={`historyMatchCard historyMatchCardBase ${match.cardVariant}`}>
       <div className="historyMatchLeft">
@@ -24,15 +35,18 @@ export default function MatchHistoryCard({ match }) {
           </span>
         </div>
         <div className="historyMatchItems">
-          <div className={`historyMatchItem ${match.itemVariant}`}></div>
-          <div className={`historyMatchItem ${match.itemVariant}`}></div>
-          <div className={`historyMatchItem ${match.itemVariant}`}></div>
-          <div className={`historyMatchItem ${match.itemVariant}`}></div>
+          {buildSlots.map((slotUrl, index) => (
+            <div key={index} className="historyMatchItem historyMatchItemSlot">
+              {slotUrl ? (
+                <img
+                  src={slotUrl}
+                  alt="match-slot"
+                  className="historyMatchItemImage"
+                />
+              ) : null}
+            </div>
+          ))}
         </div>
-      </div>
-      <div className="historyMatchRight">
-        <span className={`historyMatchLp ${match.lpVariant}`}>{match.lp}</span>
-        <span className={`historyMatchTag ${match.tagVariant}`}>{match.tag}</span>
       </div>
     </div>
   );

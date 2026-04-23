@@ -75,7 +75,7 @@ export default function CurrentEloSection() {
           </div>
 
           {historyMatches.map((match) => (
-            <MatchHistoryCard key={`${match.queue}-${match.ratio}`} match={match} />
+            <MatchHistoryCard key={`${match.queue}-${match.ratio}-${match.result}`} match={match} />
           ))}
         </div>
       </div>

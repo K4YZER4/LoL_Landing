@@ -17,9 +17,9 @@ function App() {
       body.classList.remove("loading");
     }, 2500);
 
-    const contentSection = document.querySelector(".currentEloSection");
-    const heroSection = document.querySelector(".heroSection");
-    const navbarTitle = document.querySelector("#navbar-title");
+    const contentSection = document.querySelector<HTMLElement>(".currentEloSection");
+    const heroSection = document.querySelector<HTMLElement>(".heroSection");
+    const navbarTitle = document.querySelector<HTMLElement>("#navbar-title");
 
     const fadeObserver = new IntersectionObserver(
       (entries) => {
