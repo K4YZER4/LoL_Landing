@@ -8,6 +8,24 @@
   background: #e2dee9;
 }
 
+.socialSectionKaneki {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 14rem;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .socialSectionKaneki {
+    width: 18rem;
+  }
+}
+
 .socialSectionHeader {
   margin-bottom: 4rem;
 }

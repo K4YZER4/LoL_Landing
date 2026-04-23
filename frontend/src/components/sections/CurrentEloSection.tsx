@@ -3,7 +3,7 @@ import historyMatches from "../data/historyMatches";
 
 export default function CurrentEloSection() {
   return (
-    <section className="currentEloSection">
+    <section className="currentEloSection sectionBlendTop">
       <video className="sectionBackgroundVideo" autoPlay muted loop>
         <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
       </video>

@@ -2,7 +2,7 @@ import ChampionSlot from "../ui/ChampionSlot";
 
 export default function ArsenalSection() {
   return (
-    <section className="arsenalSection">
+    <section className="arsenalSection sectionBlendTop">
       <video className="sectionBackgroundVideo" autoPlay muted loop>
         <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
       </video>

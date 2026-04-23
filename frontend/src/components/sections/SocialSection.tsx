@@ -2,7 +2,12 @@ import SocialLink from "../ui/SocialLink";
 
 export default function SocialSection() {
   return (
-    <section className="socialSection">
+    <section className="socialSection sectionBlendTop">
+      <img
+        src="/assets/kanekiSinFondo1.png"
+        alt="Kaneki"
+        className="socialSectionKaneki"
+      />
       <div className="sectionContainer">
         <div className="socialSectionHeader">
           <h2 className="socialSectionTitle">
@@ -17,7 +22,6 @@ export default function SocialSection() {
           <SocialLink label="Twitter" />
           <SocialLink label="Instagram" />
           <SocialLink label="Discord" />
-          <SocialLink label="YouTube" />
           <SocialLink label="LinkedIn" />
         </div>
       </div>
