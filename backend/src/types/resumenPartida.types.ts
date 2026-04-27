@@ -1,3 +1,4 @@
+import { types } from "node:util";
 import { CampeonMasJugado, StatsQueues } from "./statsWinrate.types.js";
 
 // types.ts (por ejemplo)
@@ -5,7 +6,7 @@ interface imagenesUrl {
   championIconUrl: string;
   itemsConUrls: string[]; // [item0Url..item6Url]
 }
-export interface ResumenPartida {
+interface ResumenPartida {
   matchId: string;
   queueId: number;
   durationSeconds: number;
@@ -25,16 +26,30 @@ export interface ResumenPartida {
     spell2Id: number; // summoner2Id
   };
 }
-export interface ResumenPartidaConImagenes extends ResumenPartida {
+interface ResumenPartidaConImagenes extends ResumenPartida {
   championIconUrl: string;
   itemsConUrls: (string | null)[];
   summonerSpellsConUrls: (string | null)[];
 }
-export interface ResumenStats {
+interface ResumenStats {
   statsQueues: StatsQueues;
   top10Campeones: CampeonMasJugado[];
 }
-export interface ResumenPartidaStatsYImagenes {
+interface Perfil {
+  puuid: string;
+  profileIconId: number;
+  revisionDate: number;
+  summonerLevel: number;
+}
+interface ResumenPartidaStatsYImagenes {
   respuesta: ResumenPartidaConImagenes[];
   stats: ResumenStats;
+  perfil: Perfil;
 }
+export type {
+  ResumenPartida,
+  ResumenPartidaConImagenes,
+  ResumenPartidaStatsYImagenes,
+  ResumenStats,
+  Perfil,
+};

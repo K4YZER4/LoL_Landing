@@ -1,6 +1,7 @@
 import { obtenerPUUIDService } from "./obetenerPUUID.services.js";
 import { obtenerHistorialService } from "./obtenerHistorial.services.js";
 import { obetenerImagenesService } from "./obetenerUrlImagenes.services.js";
+import { obtenerNombreService } from "./obtenerNombre.services.js";
 import {
   calcularStatsQueues,
   calcularTop10Campeones,
@@ -16,6 +17,7 @@ export async function todoDataPerfil(
   cantidadPartidas: number,
 ): Promise<ResumenPartidaStatsYImagenes> {
   const puuid = await obtenerPUUIDService(name);
+  const perfil = await obtenerNombreService(puuid);
   const historialObtenido: ResumenPartida[] =
     await obtenerHistorialService(puuid);
   const statsQueues = calcularStatsQueues(historialObtenido);
@@ -48,5 +50,5 @@ export async function todoDataPerfil(
       summonerSpellsConUrls,
     });
   }
-  return { respuesta, stats };
+  return { respuesta, stats, perfil };
 }

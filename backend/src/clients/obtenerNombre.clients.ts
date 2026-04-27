@@ -1,4 +1,5 @@
-export async function obtenerNombre(puuid: string) {
+import { Perfil } from "../types/resumenPartida.types.js";
+export async function obtenerNombre(puuid: string): Promise<Perfil> {
   const url = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`;
   const resp = await fetch(url, {
     headers: {
