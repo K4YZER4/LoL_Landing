@@ -3,11 +3,17 @@ import { formatRoleStat } from "../../utils/format";
 import ChampionSlot from "../ui/ChampionSlot";
 
 interface ArsenalSectionProps {
-  profile: ProfileResponse;
+  profile: ProfileResponse | null;
+  isLoading: boolean;
 }
 
-export default function ArsenalSection({ profile }: ArsenalSectionProps) {
-  const { primaryRole, secondaryRole, topChampions } = profile.stats;
+export default function ArsenalSection({
+  profile,
+  isLoading,
+}: ArsenalSectionProps) {
+  const primaryRole = profile?.stats.primaryRole ?? null;
+  const secondaryRole = profile?.stats.secondaryRole ?? null;
+  const topChampions = profile?.stats.topChampions ?? [];
   const champions = topChampions.slice(0, 5);
 
   return (
@@ -44,7 +50,7 @@ export default function ArsenalSection({ profile }: ArsenalSectionProps) {
                 <span className="arsenalRoleLabel">Primary Role</span>
               </div>
               <span className="arsenalRoleValue">
-                {formatRoleStat(primaryRole)}
+                {isLoading ? "—" : formatRoleStat(primaryRole)}
               </span>
             </div>
 
@@ -56,7 +62,7 @@ export default function ArsenalSection({ profile }: ArsenalSectionProps) {
                 <span className="arsenalRoleLabel">Secondary Role</span>
               </div>
               <span className="arsenalRoleValue">
-                {formatRoleStat(secondaryRole)}
+                {isLoading ? "—" : formatRoleStat(secondaryRole)}
               </span>
             </div>
           </div>
@@ -72,7 +78,11 @@ export default function ArsenalSection({ profile }: ArsenalSectionProps) {
                   />
                 ))
               ) : (
-                <p className="arsenalEmpty">No mastery data available.</p>
+                <p className="arsenalEmpty">
+                  {isLoading
+                    ? "Loading champion data..."
+                    : "No mastery data available."}
+                </p>
               )}
             </div>
           </div>

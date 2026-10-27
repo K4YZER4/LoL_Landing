@@ -3,14 +3,20 @@ import { formatLp, formatRank } from "../../utils/format";
 import MatchHistoryCard from "../ui/MatchHistoryCard";
 
 interface CurrentEloSectionProps {
-  profile: ProfileResponse;
+  profile: ProfileResponse | null;
+  isLoading: boolean;
 }
 
 export default function CurrentEloSection({
   profile,
+  isLoading,
 }: CurrentEloSectionProps) {
-  const { ranked, stats, matches } = profile;
-  const efficiency = Math.min(100, Math.max(0, stats.efficiency));
+  const ranked = profile?.ranked;
+  const stats = profile?.stats;
+  const matches = profile?.matches ?? [];
+  const winrate = stats
+    ? Math.min(100, Math.max(0, stats.efficiency))
+    : null;
 
   return (
     <section className="currentEloSection sectionBlendTop">
@@ -35,13 +41,13 @@ export default function CurrentEloSection({
           <div className="glassPanel currentEloCard">
             <span className="currentEloCardLabel">Winrate</span>
             <div className="currentEloValueRow">
-              <span className="currentEloValueNumber">{efficiency}</span>
+              <span className="currentEloValueNumber">{winrate ?? "—"}</span>
               <span className="currentEloValueUnit">%</span>
             </div>
             <div className="currentEloProgressTrack">
               <div
                 className="currentEloProgressFill"
-                style={{ width: `${efficiency}%` }}
+                style={{ width: `${winrate ?? 0}%` }}
               ></div>
             </div>
           </div>
@@ -50,10 +56,10 @@ export default function CurrentEloSection({
             <span className="currentEloCardLabel">SOLO DUO</span>
             <div className="currentEloRankWrap">
               <span className="currentEloRankTier">
-                {formatRank(ranked.soloDuo)}
+                {ranked ? formatRank(ranked.soloDuo) : "—"}
               </span>
               <span className="currentEloRankPoints">
-                {formatLp(ranked.soloDuo)}
+                {ranked ? formatLp(ranked.soloDuo) : "—"}
               </span>
             </div>
             <div className="currentEloCardIconWrap">
@@ -67,10 +73,10 @@ export default function CurrentEloSection({
             <span className="currentEloCardLabel">FLEX</span>
             <div className="currentEloRankWrap">
               <span className="currentEloRankTier">
-                {formatRank(ranked.flex)}
+                {ranked ? formatRank(ranked.flex) : "—"}
               </span>
               <span className="currentEloRankPoints">
-                {formatLp(ranked.flex)}
+                {ranked ? formatLp(ranked.flex) : "—"}
               </span>
             </div>
             <div className="currentEloCardIconWrap">
@@ -97,7 +103,9 @@ export default function CurrentEloSection({
               />
             ))
           ) : (
-            <p className="historyEmpty">No recent matches.</p>
+            <p className="historyEmpty">
+              {isLoading ? "Loading recent matches..." : "No recent matches."}
+            </p>
           )}
         </div>
       </div>

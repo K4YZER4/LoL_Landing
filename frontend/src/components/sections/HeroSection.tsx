@@ -1,12 +1,10 @@
 interface HeroSectionProps {
-  gameName: string;
-  tagLine: string;
-  level: number;
+  displayName: string;
+  level: number | null;
 }
 
 export default function HeroSection({
-  gameName,
-  tagLine,
+  displayName,
   level,
 }: HeroSectionProps) {
   return (
@@ -16,13 +14,13 @@ export default function HeroSection({
       <div className="heroSectionContent">
         <div className="heroSectionTitleWrap">
           <h1 className="heroSectionTitle heroTitleOutline">
-            {gameName}#{tagLine}
+            {displayName}
           </h1>
         </div>
         <div className="heroSectionLevelWrap" style={{ right: "-100px" }}>
           <div className="glassPanel heroSectionLevelCard">
             <span className="heroSectionLevelLabel">LEVEL</span>
-            <span className="heroSectionLevelValue">{level}</span>
+            <span className="heroSectionLevelValue">{level ?? "—"}</span>
           </div>
         </div>
       </div>

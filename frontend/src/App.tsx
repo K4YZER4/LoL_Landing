@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import LoadingScreen from "./components/layout/LoadingScreen";
+import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import DataError from "./components/layout/DataError";
@@ -11,45 +10,24 @@ import { useAccount } from "./hooks/useAccount";
 import { useProfile } from "./hooks/useProfile";
 import { formatRiotId } from "./utils/format";
 
-const MIN_LOADING_TIME_MS = 2500;
-
 function App() {
   const account = useAccount();
   const { profile, isLoading, error, reload } = useProfile(5);
-  const [minimumLoadingTimeElapsed, setMinimumLoadingTimeElapsed] =
-    useState(false);
-
-  useEffect(() => {
-    const loadingTimeout = window.setTimeout(() => {
-      setMinimumLoadingTimeElapsed(true);
-    }, MIN_LOADING_TIME_MS);
-
-    return () => window.clearTimeout(loadingTimeout);
-  }, []);
-
-  const isShowingLoadingScreen = !minimumLoadingTimeElapsed || isLoading;
-  const loadingTitle = account
+  const displayName = account
     ? formatRiotId(account.gameName, account.tagLine)
     : profile
       ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
-      : "LOADING...";
+      : "—";
 
   useEffect(() => {
     const body = document.body;
     body.classList.add("appBody", "appScrollbar");
+    body.classList.remove("loading");
 
     return () => {
-      body.classList.remove("appBody", "appScrollbar");
+      body.classList.remove("appBody", "appScrollbar", "loading");
     };
   }, []);
-
-  useEffect(() => {
-    document.body.classList.toggle("loading", isShowingLoadingScreen);
-
-    return () => {
-      document.body.classList.remove("loading");
-    };
-  }, [isShowingLoadingScreen]);
 
   useEffect(() => {
     if (!profile) {
@@ -140,30 +118,16 @@ function App() {
     };
   }, [profile]);
 
-  if (error && !isShowingLoadingScreen) {
+  if (error && !profile) {
     return <DataError message={error} onRetry={reload} />;
-  }
-
-  if (!profile) {
-    return (
-      <LoadingScreen visible={isShowingLoadingScreen} title={loadingTitle} />
-    );
   }
 
   return (
     <>
-      <LoadingScreen visible={isShowingLoadingScreen} title={loadingTitle} />
-      <Navbar
-        gameName={profile.perfil.gameName}
-        tagLine={profile.perfil.tagLine}
-      />
-      <HeroSection
-        gameName={profile.perfil.gameName}
-        tagLine={profile.perfil.tagLine}
-        level={profile.perfil.level}
-      />
-      <CurrentEloSection profile={profile} />
-      <ArsenalSection profile={profile} />
+      <Navbar displayName={displayName} />
+      <HeroSection displayName={displayName} level={profile?.perfil.level ?? null} />
+      <CurrentEloSection profile={profile} isLoading={isLoading} />
+      <ArsenalSection profile={profile} isLoading={isLoading} />
       <SocialSection />
       <Footer />
     </>
