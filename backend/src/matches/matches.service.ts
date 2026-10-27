@@ -16,9 +16,9 @@ export class MatchesService {
     this.puuid = config.getOrThrow<string>('OWNER_PUUID');
   }
 
-  async getRecent(count = 5): Promise<MatchViewModel[]> {
+  async getRecent(count = 5, start = 0): Promise<MatchViewModel[]> {
     const matchIds = await this.riot.get<string[]>(
-      `/lol/match/v5/matches/by-puuid/${this.puuid}/ids?start=0&count=${count}`,
+      `/lol/match/v5/matches/by-puuid/${this.puuid}/ids?start=${start}&count=${count}`,
       'region',
     );
 
