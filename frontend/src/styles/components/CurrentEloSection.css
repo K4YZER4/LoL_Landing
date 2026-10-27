@@ -185,6 +185,84 @@
   background: rgba(58, 52, 69, 0.1);
 }
 
+.historyMatchesList:has(.historyMatchCard:hover) .historyMatchCardBase:not(:hover) {
+  opacity: 0.3;
+  transform: scale(0.97);
+}
+
+.historyPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  margin: 3rem auto 0;
+}
+
+.historyPagination button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.35rem;
+  background: transparent;
+  color: rgba(58, 52, 69, 0.58);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.7rem;
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.historyPaginationPage.active {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(184, 172, 207, 0.38);
+  color: #2d2837;
+  box-shadow: 0 0.5rem 1.2rem rgba(58, 52, 69, 0.07);
+}
+
+.historyPagination button:hover:not(:disabled):not(.active) {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.historyPagination button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.historyPagination button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.historyPagination button:focus-visible {
+  outline: 2px solid rgba(184, 172, 207, 0.85);
+  outline-offset: 2px;
+}
+
+.historyPaginationError {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.historyPaginationError button {
+  border: 1px solid rgba(58, 52, 69, 0.15);
+  background: rgba(255, 255, 255, 0.25);
+  color: #2d2837;
+  padding: 0.5rem 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
 .historyEmpty {
   font-family: "Manrope", sans-serif;
   font-size: 0.875rem;

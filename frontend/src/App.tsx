@@ -8,12 +8,16 @@ import CurrentEloSection from "./components/sections/CurrentEloSection";
 import ArsenalSection from "./components/sections/ArsenalSection";
 import SocialSection from "./components/sections/SocialSection";
 import { useAccount } from "./hooks/useAccount";
+import { useMatches } from "./hooks/useMatches";
 import { useProfile } from "./hooks/useProfile";
 import { formatRiotId } from "./utils/format";
+import { getMatchStats } from "./utils/matchStats";
 
 function App() {
   const account = useAccount();
-  const { profile, isLoading, error, reload } = useProfile(5);
+  const { profile, isLoading, error, reload } = useProfile(0);
+  const matches = useMatches(20);
+  const matchStats = getMatchStats(matches.matches);
   const [introFinished, setIntroFinished] = useState(false);
   const displayName = account
     ? formatRiotId(account.gameName, account.tagLine)
@@ -21,6 +25,15 @@ function App() {
       ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
       : "";
   const isShowingIntro = !introFinished;
+
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    return () => {
+      window.history.scrollRestoration = "auto";
+    };
+  }, []);
 
   useEffect(() => {
     const introTimeout = window.setTimeout(() => {
@@ -91,41 +104,9 @@ function App() {
 
     window.addEventListener("scroll", handleScroll);
 
-    const rankingCards = Array.from(
-      document.querySelectorAll<HTMLElement>(".historyMatchCard"),
-    );
-
-    const handleMouseEnter = (card: HTMLElement) => {
-      rankingCards.forEach((otherCard) => {
-        if (otherCard !== card) {
-          otherCard.classList.add("dimmed");
-        }
-      });
-    };
-
-    const handleMouseLeave = () => {
-      rankingCards.forEach((card) => {
-        card.classList.remove("dimmed");
-      });
-    };
-
-    const cardListeners = rankingCards.map((card) => {
-      const onMouseEnter = () => handleMouseEnter(card);
-
-      card.addEventListener("mouseenter", onMouseEnter);
-      card.addEventListener("mouseleave", handleMouseLeave);
-
-      return { card, onMouseEnter };
-    });
-
     return () => {
       fadeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
-
-      cardListeners.forEach(({ card, onMouseEnter }) => {
-        card.removeEventListener("mouseenter", onMouseEnter);
-        card.removeEventListener("mouseleave", handleMouseLeave);
-      });
     };
   }, [profile]);
 
@@ -138,8 +119,21 @@ function App() {
       <LoadingScreen visible={isShowingIntro} title={displayName} />
       <Navbar displayName={displayName} />
       <HeroSection displayName={displayName} level={profile?.perfil.level ?? null} />
-      <CurrentEloSection profile={profile} isLoading={isLoading} />
-      <ArsenalSection profile={profile} isLoading={isLoading} />
+      <CurrentEloSection
+        profile={profile}
+        isLoading={isLoading}
+        matches={matches.matches}
+        matchesLoading={matches.isLoading}
+        matchesError={matches.error}
+        reloadMatches={matches.reload}
+        matchStats={matchStats}
+      />
+      <ArsenalSection
+        profile={profile}
+        isLoading={isLoading}
+        matchStats={matchStats}
+        matchesLoading={matches.isLoading}
+      />
       <SocialSection />
       <Footer />
     </>
