@@ -1,4 +1,9 @@
-export default function Navbar() {
+interface NavbarProps {
+  gameName: string;
+  tagLine: string;
+}
+
+export default function Navbar({ gameName, tagLine }: NavbarProps) {
   return (
     <nav className="navbarRoot">
       <div className="navbarLeft">
@@ -7,7 +12,7 @@ export default function Navbar() {
           className="navbarTitle heroTitleOutline"
           style={{ display: "inline-block" }}
         >
-          ØRBIT#0B1T
+          {gameName}#{tagLine}
         </span>
       </div>
     </nav>

@@ -143,3 +143,10 @@
   height: 1px;
   background: rgba(58, 52, 69, 0.1);
 }
+
+.historyEmpty {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.875rem;
+  color: rgba(58, 52, 69, 0.6);
+  padding: 2rem 0;
+}

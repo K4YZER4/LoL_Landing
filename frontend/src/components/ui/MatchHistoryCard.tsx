@@ -1,42 +1,82 @@
-import type { MatchHistoryViewModel } from "../../types/match";
+import type { ItemOrSpellUrl, MatchViewModel } from "../../types/profile";
+import { formatDuration } from "../../utils/format";
 
 interface MatchHistoryCardProps {
-  match: MatchHistoryViewModel;
+  match: MatchViewModel;
+  index: number;
+  isLast: boolean;
 }
 
-export default function MatchHistoryCard({ match }: MatchHistoryCardProps) {
-  const nonNullItems = match.itemUrls.filter((itemUrl) => itemUrl !== null);
-  const nullItems = Array.from({ length: match.itemUrls.length - nonNullItems.length }, () => null);
-  const orderedItems = [...nonNullItems, ...nullItems] as MatchHistoryViewModel["itemUrls"];
+export default function MatchHistoryCard({
+  match,
+  index,
+  isLast,
+}: MatchHistoryCardProps) {
+  const nonNullItems = match.itemUrls.filter(
+    (itemUrl): itemUrl is string => itemUrl !== null,
+  );
+  const nullItems = Array.from(
+    { length: match.itemUrls.length - nonNullItems.length },
+    () => null,
+  );
+  const orderedItems = [...nonNullItems, ...nullItems] as ItemOrSpellUrl[];
   const buildSlots = [...match.spellUrls, ...orderedItems];
 
+  const cardVariant = [
+    isLast ? "" : "historyMatchCardWithMargin",
+    match.win ? "historyMatchCardMain" : "historyMatchCardDim",
+    index >= 2 ? "historyMatchCardBorder" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const avatarVariant = match.win
+    ? "historyMatchAvatarMain"
+    : "historyMatchAvatarSubtle";
+  const resultVariant = match.win
+    ? "historyMatchResultWin"
+    : "historyMatchResultSubtle";
+  const ratioVariant = match.win
+    ? "historyMatchRatioMain"
+    : "historyMatchRatioSubtle";
+
   return (
-    <div className={`historyMatchCard historyMatchCardBase ${match.cardVariant}`}>
+    <div className={`historyMatchCard historyMatchCardBase ${cardVariant}`}>
       <div className="historyMatchLeft">
-        <div className={`historyMatchAvatar ${match.avatarVariant}`}>
-          <img
-            src="/assets/personaje.jpeg"
-            alt="Player"
-            className="w-full h-full object-cover opacity-70"
-          />
+        <div
+          className={`historyMatchAvatar ${avatarVariant}`}
+          title={match.championName}
+        >
+          {match.championIconUrl ? (
+            <img
+              src={match.championIconUrl}
+              alt={match.championName}
+              className="w-full h-full object-cover"
+            />
+          ) : null}
         </div>
         <div>
-          <span className={`historyMatchResult ${match.resultVariant}`}>{match.result}</span>
+          <span className={`historyMatchResult ${resultVariant}`}>
+            {match.win ? "VICTORY" : "DEFEAT"}
+          </span>
           <span className="historyMatchQueueText">
-            {match.queue}
+            {match.queueName} // {formatDuration(match.durationSeconds)}
           </span>
         </div>
       </div>
       <div className="historyMatchCenter">
         <div className="text-center">
-          <span className={`historyMatchRatio ${match.ratioVariant}`}>{match.ratio}</span>
-          <span className="historyMatchRatioLabel">
-            RATIO
+          <span className={`historyMatchRatio ${ratioVariant}`}>
+            {match.kills} / {match.deaths} / {match.assists}
           </span>
+          <span className="historyMatchRatioLabel">RATIO</span>
         </div>
         <div className="historyMatchItems">
-          {buildSlots.map((slotUrl, index) => (
-            <div key={index} className="historyMatchItem historyMatchItemSlot">
+          {buildSlots.map((slotUrl, slotIndex) => (
+            <div
+              key={slotIndex}
+              className="historyMatchItem historyMatchItemSlot"
+            >
               {slotUrl ? (
                 <img
                   src={slotUrl}

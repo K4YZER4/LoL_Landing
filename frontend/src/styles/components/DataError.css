@@ -1,0 +1,67 @@
+.dataErrorScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #e2dee9;
+}
+
+.dataErrorCard {
+  width: 100%;
+  max-width: 34rem;
+  padding: 3rem;
+  text-align: center;
+}
+
+.dataErrorLabel {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: rgba(58, 52, 69, 0.6);
+  text-transform: uppercase;
+}
+
+.dataErrorTitle {
+  margin: 0 0 1rem;
+  font-family: "Epilogue", sans-serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 300;
+  color: #2d2837;
+}
+
+.dataErrorText {
+  margin: 0 0 0.75rem;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(58, 52, 69, 0.75);
+  overflow-wrap: anywhere;
+}
+
+.dataErrorHint {
+  margin: 0 0 2rem;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: rgba(58, 52, 69, 0.5);
+}
+
+.dataErrorButton {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.25);
+  color: #2d2837;
+  padding: 0.75rem 1.5rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.dataErrorButton:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

@@ -1,69 +1,82 @@
+import type { ProfileResponse } from "../../types/profile";
+import { formatLp, formatRank } from "../../utils/format";
 import MatchHistoryCard from "../ui/MatchHistoryCard";
-import historyMatches from "../data/historyMatches";
 
-export default function CurrentEloSection() {
+interface CurrentEloSectionProps {
+  profile: ProfileResponse;
+}
+
+export default function CurrentEloSection({
+  profile,
+}: CurrentEloSectionProps) {
+  const { ranked, stats, matches } = profile;
+  const efficiency = Math.min(100, Math.max(0, stats.efficiency));
+
   return (
     <section className="currentEloSection sectionBlendTop">
       <video className="sectionBackgroundVideo" autoPlay muted loop>
         <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
       </video>
-      <img className="sectionForegroundGif" src="/assets/pinkFlowers.gif" alt="Pink Flowers" />
+      <img
+        className="sectionForegroundGif"
+        src="/assets/pinkFlowers.gif"
+        alt="Pink Flowers"
+      />
       <div className="sectionColorOverlay"></div>
       <div className="sectionContainer">
         <div className="currentEloHeader">
           <div>
-            <h2 className="sectionTitle">
-              Current Elo
-            </h2>
+            <h2 className="sectionTitle">Current Elo</h2>
             <p className="sectionSubTitle"></p>
           </div>
         </div>
 
         <div className="currentEloCardsGrid">
           <div className="glassPanel currentEloCard">
-            <span className="currentEloCardLabel">
-              Efficiency
-            </span>
+            <span className="currentEloCardLabel">Efficiency</span>
             <div className="currentEloValueRow">
-              <span className="currentEloValueNumber">64</span>
+              <span className="currentEloValueNumber">{efficiency}</span>
               <span className="currentEloValueUnit">%</span>
             </div>
             <div className="currentEloProgressTrack">
-              <div className="currentEloProgressFill"></div>
+              <div
+                className="currentEloProgressFill"
+                style={{ width: `${efficiency}%` }}
+              ></div>
             </div>
           </div>
 
           <div className="glassPanel currentEloCard currentEloCardPrimary">
-            <span className="currentEloCardLabel">
-              SOLO DUO
-            </span>
+            <span className="currentEloCardLabel">SOLO DUO</span>
             <div className="currentEloRankWrap">
               <span className="currentEloRankTier">
-                DIAMANTE 1
+                {formatRank(ranked.soloDuo)}
               </span>
               <span className="currentEloRankPoints">
-                90 LP
+                {formatLp(ranked.soloDuo)}
               </span>
             </div>
             <div className="currentEloCardIconWrap">
-              <span className="material-symbols-outlined currentEloCardIconPrimary">flare</span>
+              <span className="material-symbols-outlined currentEloCardIconPrimary">
+                flare
+              </span>
             </div>
           </div>
 
           <div className="glassPanel currentEloCard">
-            <span className="currentEloCardLabel">
-              FLEX
-            </span>
+            <span className="currentEloCardLabel">FLEX</span>
             <div className="currentEloRankWrap">
               <span className="currentEloRankTier">
-                MASTER
+                {formatRank(ranked.flex)}
               </span>
               <span className="currentEloRankPoints">
-                150 LP
+                {formatLp(ranked.flex)}
               </span>
             </div>
             <div className="currentEloCardIconWrap">
-              <span className="material-symbols-outlined currentEloCardIconMuted">all_inclusive</span>
+              <span className="material-symbols-outlined currentEloCardIconMuted">
+                all_inclusive
+              </span>
             </div>
           </div>
         </div>
@@ -74,9 +87,18 @@ export default function CurrentEloSection() {
             <div className="historyHeaderLine"></div>
           </div>
 
-          {historyMatches.map((match) => (
-            <MatchHistoryCard key={`${match.queue}-${match.ratio}-${match.result}`} match={match} />
-          ))}
+          {matches.length > 0 ? (
+            matches.map((match, index) => (
+              <MatchHistoryCard
+                key={match.matchId}
+                match={match}
+                index={index}
+                isLast={index === matches.length - 1}
+              />
+            ))
+          ) : (
+            <p className="historyEmpty">No recent matches.</p>
+          )}
         </div>
       </div>
     </section>

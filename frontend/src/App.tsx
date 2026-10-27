@@ -1,23 +1,56 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoadingScreen from "./components/layout/LoadingScreen";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import DataError from "./components/layout/DataError";
 import HeroSection from "./components/sections/HeroSection";
 import CurrentEloSection from "./components/sections/CurrentEloSection";
 import ArsenalSection from "./components/sections/ArsenalSection";
 import SocialSection from "./components/sections/SocialSection";
+import { useProfile } from "./hooks/useProfile";
+
+const MIN_LOADING_TIME_MS = 2500;
 
 function App() {
+  const { profile, isLoading, error, reload } = useProfile(5);
+  const [minimumLoadingTimeElapsed, setMinimumLoadingTimeElapsed] =
+    useState(false);
+
+  useEffect(() => {
+    const loadingTimeout = window.setTimeout(() => {
+      setMinimumLoadingTimeElapsed(true);
+    }, MIN_LOADING_TIME_MS);
+
+    return () => window.clearTimeout(loadingTimeout);
+  }, []);
+
+  const isShowingLoadingScreen = !minimumLoadingTimeElapsed || isLoading;
+
   useEffect(() => {
     const body = document.body;
-    body.classList.add("loading");
     body.classList.add("appBody", "appScrollbar");
 
-    const loadingTimeout = setTimeout(() => {
-      body.classList.remove("loading");
-    }, 2500);
+    return () => {
+      body.classList.remove("appBody", "appScrollbar");
+    };
+  }, []);
 
-    const contentSection = document.querySelector<HTMLElement>(".currentEloSection");
+  useEffect(() => {
+    document.body.classList.toggle("loading", isShowingLoadingScreen);
+
+    return () => {
+      document.body.classList.remove("loading");
+    };
+  }, [isShowingLoadingScreen]);
+
+  useEffect(() => {
+    if (!profile) {
+      return;
+    }
+
+    const contentSection = document.querySelector<HTMLElement>(
+      ".currentEloSection",
+    );
     const heroSection = document.querySelector<HTMLElement>(".heroSection");
     const navbarTitle = document.querySelector<HTMLElement>("#navbar-title");
 
@@ -32,8 +65,8 @@ function App() {
         });
       },
       {
-        threshold: 0.1
-      }
+        threshold: 0.1,
+      },
     );
 
     if (contentSection) {
@@ -61,41 +94,66 @@ function App() {
 
     window.addEventListener("scroll", handleScroll);
 
-    const rankingCards = document.querySelectorAll(".historyMatchCard");
-    rankingCards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        rankingCards.forEach((c) => {
-          if (c !== card) {
-            c.classList.add("dimmed");
-          }
-        });
-      });
+    const rankingCards = Array.from(
+      document.querySelectorAll<HTMLElement>(".historyMatchCard"),
+    );
 
-      card.addEventListener("mouseleave", () => {
-        rankingCards.forEach((c) => {
-          c.classList.remove("dimmed");
-        });
+    const handleMouseEnter = (card: HTMLElement) => {
+      rankingCards.forEach((otherCard) => {
+        if (otherCard !== card) {
+          otherCard.classList.add("dimmed");
+        }
       });
+    };
+
+    const handleMouseLeave = () => {
+      rankingCards.forEach((card) => {
+        card.classList.remove("dimmed");
+      });
+    };
+
+    const cardListeners = rankingCards.map((card) => {
+      const onMouseEnter = () => handleMouseEnter(card);
+
+      card.addEventListener("mouseenter", onMouseEnter);
+      card.addEventListener("mouseleave", handleMouseLeave);
+
+      return { card, onMouseEnter };
     });
 
     return () => {
-      clearTimeout(loadingTimeout);
       fadeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
-      body.classList.remove(
-        "appBody",
-        "appScrollbar"
-      );
+
+      cardListeners.forEach(({ card, onMouseEnter }) => {
+        card.removeEventListener("mouseenter", onMouseEnter);
+        card.removeEventListener("mouseleave", handleMouseLeave);
+      });
     };
-  }, []);
+  }, [profile]);
+
+  if (error && !isShowingLoadingScreen) {
+    return <DataError message={error} onRetry={reload} />;
+  }
+
+  if (!profile) {
+    return <LoadingScreen visible={isShowingLoadingScreen} />;
+  }
 
   return (
     <>
-      <LoadingScreen />
-      <Navbar />
-      <HeroSection />
-      <CurrentEloSection />
-      <ArsenalSection />
+      <LoadingScreen visible={isShowingLoadingScreen} />
+      <Navbar
+        gameName={profile.perfil.gameName}
+        tagLine={profile.perfil.tagLine}
+      />
+      <HeroSection
+        gameName={profile.perfil.gameName}
+        tagLine={profile.perfil.tagLine}
+        level={profile.perfil.level}
+      />
+      <CurrentEloSection profile={profile} />
+      <ArsenalSection profile={profile} />
       <SocialSection />
       <Footer />
     </>
