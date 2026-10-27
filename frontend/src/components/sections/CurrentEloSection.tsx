@@ -1,9 +1,6 @@
-import { useState } from "react";
 import type { ProfileResponse } from "../../types/profile";
 import { formatLp, formatRank } from "../../utils/format";
 import MatchHistoryCard from "../ui/MatchHistoryCard";
-
-type EloCardId = "winrate" | "soloDuo" | "flex";
 
 interface CurrentEloSectionProps {
   profile: ProfileResponse | null;
@@ -14,26 +11,12 @@ export default function CurrentEloSection({
   profile,
   isLoading,
 }: CurrentEloSectionProps) {
-  const [selectedCard, setSelectedCard] = useState<EloCardId | null>(null);
   const ranked = profile?.ranked;
   const stats = profile?.stats;
   const matches = profile?.matches ?? [];
   const winrate = stats
     ? Math.min(100, Math.max(0, stats.efficiency))
     : null;
-
-  const getCardClassName = (cardId: EloCardId) =>
-    [
-      "glassPanel",
-      "currentEloCard",
-      "currentEloCardSelectable",
-      selectedCard === cardId ? "currentEloCardSelected" : "",
-      selectedCard && selectedCard !== cardId
-        ? "currentEloCardDimmed"
-        : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
 
   return (
     <section className="currentEloSection sectionBlendTop">
@@ -57,9 +40,7 @@ export default function CurrentEloSection({
         <div className="currentEloCardsGrid">
           <button
             type="button"
-            className={getCardClassName("winrate")}
-            aria-pressed={selectedCard === "winrate"}
-            onClick={() => setSelectedCard("winrate")}
+            className="glassPanel currentEloCard currentEloCardSelectable"
           >
             <span className="currentEloCardLabel">Winrate</span>
             <div className="currentEloValueRow">
@@ -76,9 +57,7 @@ export default function CurrentEloSection({
 
           <button
             type="button"
-            className={`${getCardClassName("soloDuo")} currentEloCardPrimary`}
-            aria-pressed={selectedCard === "soloDuo"}
-            onClick={() => setSelectedCard("soloDuo")}
+            className="glassPanel currentEloCard currentEloCardSelectable currentEloCardPrimary"
           >
             <span className="currentEloCardLabel">SOLO DUO</span>
             <div className="currentEloRankWrap">
@@ -98,9 +77,7 @@ export default function CurrentEloSection({
 
           <button
             type="button"
-            className={getCardClassName("flex")}
-            aria-pressed={selectedCard === "flex"}
-            onClick={() => setSelectedCard("flex")}
+            className="glassPanel currentEloCard currentEloCardSelectable"
           >
             <span className="currentEloCardLabel">FLEX</span>
             <div className="currentEloRankWrap">
