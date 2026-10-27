@@ -1,3 +1,7 @@
+.arsenalSection {
+  overflow: hidden;
+}
+
 .arsenalGrid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -111,7 +115,7 @@
 .arsenalSectionKaneki {
   position: absolute;
   left: auto;
-  right: -9rem;
+  right: -3rem;
   bottom: 0;
   z-index: 3;
   width: 17rem;
@@ -119,11 +123,14 @@
   object-fit: contain;
   pointer-events: none;
   user-select: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 52%, rgba(0, 0, 0, 0.82) 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 52%, rgba(0, 0, 0, 0.82) 70%, transparent 100%);
+  filter: blur(0.7px);
 }
 
 @media (min-width: 768px) {
   .arsenalSectionKaneki {
-    right: -14rem;
+    right: -7rem;
     width: 35rem;
   }
 }
