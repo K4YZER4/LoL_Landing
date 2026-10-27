@@ -3,6 +3,7 @@ import type { MatchViewModel, ProfileResponse } from "../../types/profile";
 import { formatLp, formatRank } from "../../utils/format";
 import type { MatchStats } from "../../utils/matchStats";
 import MatchHistoryCard from "../ui/MatchHistoryCard";
+import SakuraPetalOverlay from "../layout/SakuraPetalOverlay";
 
 interface CurrentEloSectionProps {
   profile: ProfileResponse | null;
@@ -39,12 +40,8 @@ export default function CurrentEloSection({
       <video className="sectionBackgroundVideo" autoPlay muted loop>
         <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
       </video>
-      <img
-        className="sectionForegroundGif"
-        src="/assets/pinkFlowers.gif"
-        alt="Pink Flowers"
-      />
       <div className="sectionColorOverlay"></div>
+      <SakuraPetalOverlay lightColor="#efd9f1" deepColor="#a99bd6" />
       <div className="sectionContainer">
         <div className="currentEloHeader">
           <div>

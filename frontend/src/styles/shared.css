@@ -93,23 +93,6 @@ video.sectionBackgroundVideo::before {
   opacity: 1;
 }
 
-.sectionForegroundGif {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-  opacity: 1;
-  pointer-events: none;
-}
-
-.currentEloSection.fade-in video.sectionBackgroundVideo::before,
-.arsenalSection.fade-in video.sectionBackgroundVideo::before {
-  opacity: 0;
-}
-
 .sectionColorOverlay {
   position: absolute;
   top: 0;
@@ -130,6 +113,23 @@ video.sectionBackgroundVideo::before {
 .currentEloSection.fade-in .sectionColorOverlay,
 .arsenalSection.fade-in .sectionColorOverlay {
   opacity: 0.97;
+}
+
+.sectionForegroundGif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.currentEloSection.fade-in video.sectionBackgroundVideo::before,
+.arsenalSection.fade-in video.sectionBackgroundVideo::before {
+  opacity: 0;
 }
 
 .sectionBlendTop {

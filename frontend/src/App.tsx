@@ -11,13 +11,14 @@ import { useAccount } from "./hooks/useAccount";
 import { useMatches } from "./hooks/useMatches";
 import { useProfile } from "./hooks/useProfile";
 import { formatRiotId } from "./utils/format";
-import { getMatchStats } from "./utils/matchStats";
+import { getMatchStats, getMostPlayedChampions } from "./utils/matchStats";
 
 function App() {
   const account = useAccount();
   const { profile, isLoading, error, reload } = useProfile(0);
   const matches = useMatches(20);
   const matchStats = getMatchStats(matches.matches);
+  const mostPlayedChampions = getMostPlayedChampions(matches.matches);
   const [introFinished, setIntroFinished] = useState(false);
   const displayName = account
     ? formatRiotId(account.gameName, account.tagLine)
@@ -133,6 +134,7 @@ function App() {
         isLoading={isLoading}
         matchStats={matchStats}
         matchesLoading={matches.isLoading}
+        mostPlayedChampions={mostPlayedChampions}
       />
       <SocialSection />
       <Footer />
