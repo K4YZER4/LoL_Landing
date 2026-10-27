@@ -1,4 +1,12 @@
-export default function HeroSection() {
+interface HeroSectionProps {
+  displayName: string;
+  level: number | null;
+}
+
+export default function HeroSection({
+  displayName,
+  level,
+}: HeroSectionProps) {
   return (
     <section className="heroSection">
       <div className="heroSectionBackground"></div>
@@ -6,13 +14,13 @@ export default function HeroSection() {
       <div className="heroSectionContent">
         <div className="heroSectionTitleWrap">
           <h1 className="heroSectionTitle heroTitleOutline">
-            ØRBIT#0B1T
+            {displayName}
           </h1>
         </div>
         <div className="heroSectionLevelWrap" style={{ right: "-100px" }}>
           <div className="glassPanel heroSectionLevelCard">
             <span className="heroSectionLevelLabel">LEVEL</span>
-            <span className="heroSectionLevelValue">724 .-.</span>
+            <span className="heroSectionLevelValue">{level ?? "—"}</span>
           </div>
         </div>
       </div>

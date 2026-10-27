@@ -1,16 +1,59 @@
-# React + Vite
+# Frontend — LoL Landing
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite frontend for the personal League of Legends landing. All dynamic
+data comes from the NestJS API in `../backend`.
 
-Currently, two official plugins are available:
+The main request is:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```text
+GET /api/profile?count=5
+```
 
-## React Compiler
+## 1. Configure the API URL
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+cd frontend
+cp .env.example .env
+```
 
-## Expanding the ESLint configuration
+`.env`:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```env
+VITE_API_BASE_URL=http://localhost:3001/api
+```
+
+`VITE_API_BASE_URL` must include the `/api` prefix. For production, point it to
+the deployed API URL.
+
+## 2. Run locally
+
+Terminal 1 — backend:
+
+```bash
+cd backend
+pnpm start:dev
+```
+
+Terminal 2 — frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:3001/api`
+
+The frontend uses the `package-lock.json` already present in this folder, so the
+commands above use `npm`.
+
+## Data flow
+
+- `src/api/client.ts` reads `VITE_API_BASE_URL` and centralizes fetch/error handling.
+- `src/api/profile.ts` requests the aggregated profile.
+- `src/hooks/useProfile.ts` manages loading, errors and retry.
+- `src/App.tsx` passes the profile to the hero, elo, history and champion sections.
+- `src/types/profile.ts` mirrors the backend response contract.
+
+If the API is not running, the page shows a connection error with a retry button.

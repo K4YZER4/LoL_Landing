@@ -7,6 +7,7 @@
 /* 3) Component styles (one file per component) */
 @import "./styles/components/ArsenalSection.css";
 @import "./styles/components/CurrentEloSection.css";
+@import "./styles/components/DataError.css";
 @import "./styles/components/Footer.css";
 @import "./styles/components/HeroSection.css";
 @import "./styles/components/HistoryMatchCard.css";

@@ -1,4 +1,8 @@
-export default function Navbar() {
+interface NavbarProps {
+  displayName: string;
+}
+
+export default function Navbar({ displayName }: NavbarProps) {
   return (
     <nav className="navbarRoot">
       <div className="navbarLeft">
@@ -7,7 +11,7 @@ export default function Navbar() {
           className="navbarTitle heroTitleOutline"
           style={{ display: "inline-block" }}
         >
-          ØRBIT#0B1T
+          {displayName}
         </span>
       </div>
     </nav>

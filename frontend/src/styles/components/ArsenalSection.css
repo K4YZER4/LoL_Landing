@@ -57,9 +57,17 @@
   gap: 1rem;
 }
 
+.arsenalEmpty {
+  grid-column: 1 / -1;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.75rem;
+  color: rgba(58, 52, 69, 0.6);
+}
+
 .arsenalSectionKaneki {
   position: absolute;
-  left: 0;
+  left: auto;
+  right: -9rem;
   bottom: 0;
   z-index: 3;
   width: 17rem;
@@ -71,6 +79,7 @@
 
 @media (min-width: 768px) {
   .arsenalSectionKaneki {
+    right: -14rem;
     width: 35rem;
   }
 }

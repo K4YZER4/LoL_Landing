@@ -1,23 +1,53 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoadingScreen from "./components/layout/LoadingScreen";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import DataError from "./components/layout/DataError";
 import HeroSection from "./components/sections/HeroSection";
 import CurrentEloSection from "./components/sections/CurrentEloSection";
 import ArsenalSection from "./components/sections/ArsenalSection";
 import SocialSection from "./components/sections/SocialSection";
+import { useAccount } from "./hooks/useAccount";
+import { useProfile } from "./hooks/useProfile";
+import { formatRiotId } from "./utils/format";
 
 function App() {
-  useEffect(() => {
-    const body = document.body;
-    body.classList.add("loading");
-    body.classList.add("appBody", "appScrollbar");
+  const account = useAccount();
+  const { profile, isLoading, error, reload } = useProfile(5);
+  const [introFinished, setIntroFinished] = useState(false);
+  const displayName = account
+    ? formatRiotId(account.gameName, account.tagLine)
+    : profile
+      ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
+      : "";
+  const isShowingIntro = !introFinished;
 
-    const loadingTimeout = setTimeout(() => {
-      body.classList.remove("loading");
+  useEffect(() => {
+    const introTimeout = window.setTimeout(() => {
+      setIntroFinished(true);
     }, 2500);
 
-    const contentSection = document.querySelector<HTMLElement>(".currentEloSection");
+    return () => window.clearTimeout(introTimeout);
+  }, []);
+
+  useEffect(() => {
+    const body = document.body;
+    body.classList.add("appBody", "appScrollbar");
+    body.classList.toggle("loading", isShowingIntro);
+
+    return () => {
+      body.classList.remove("appBody", "appScrollbar", "loading");
+    };
+  }, [isShowingIntro]);
+
+  useEffect(() => {
+    if (!profile) {
+      return;
+    }
+
+    const contentSection = document.querySelector<HTMLElement>(
+      ".currentEloSection",
+    );
     const heroSection = document.querySelector<HTMLElement>(".heroSection");
     const navbarTitle = document.querySelector<HTMLElement>("#navbar-title");
 
@@ -32,8 +62,8 @@ function App() {
         });
       },
       {
-        threshold: 0.1
-      }
+        threshold: 0.1,
+      },
     );
 
     if (contentSection) {
@@ -61,41 +91,55 @@ function App() {
 
     window.addEventListener("scroll", handleScroll);
 
-    const rankingCards = document.querySelectorAll(".historyMatchCard");
-    rankingCards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        rankingCards.forEach((c) => {
-          if (c !== card) {
-            c.classList.add("dimmed");
-          }
-        });
-      });
+    const rankingCards = Array.from(
+      document.querySelectorAll<HTMLElement>(".historyMatchCard"),
+    );
 
-      card.addEventListener("mouseleave", () => {
-        rankingCards.forEach((c) => {
-          c.classList.remove("dimmed");
-        });
+    const handleMouseEnter = (card: HTMLElement) => {
+      rankingCards.forEach((otherCard) => {
+        if (otherCard !== card) {
+          otherCard.classList.add("dimmed");
+        }
       });
+    };
+
+    const handleMouseLeave = () => {
+      rankingCards.forEach((card) => {
+        card.classList.remove("dimmed");
+      });
+    };
+
+    const cardListeners = rankingCards.map((card) => {
+      const onMouseEnter = () => handleMouseEnter(card);
+
+      card.addEventListener("mouseenter", onMouseEnter);
+      card.addEventListener("mouseleave", handleMouseLeave);
+
+      return { card, onMouseEnter };
     });
 
     return () => {
-      clearTimeout(loadingTimeout);
       fadeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
-      body.classList.remove(
-        "appBody",
-        "appScrollbar"
-      );
+
+      cardListeners.forEach(({ card, onMouseEnter }) => {
+        card.removeEventListener("mouseenter", onMouseEnter);
+        card.removeEventListener("mouseleave", handleMouseLeave);
+      });
     };
-  }, []);
+  }, [profile]);
+
+  if (error && !profile) {
+    return <DataError message={error} onRetry={reload} />;
+  }
 
   return (
     <>
-      <LoadingScreen />
-      <Navbar />
-      <HeroSection />
-      <CurrentEloSection />
-      <ArsenalSection />
+      <LoadingScreen visible={isShowingIntro} title={displayName} />
+      <Navbar displayName={displayName} />
+      <HeroSection displayName={displayName} level={profile?.perfil.level ?? null} />
+      <CurrentEloSection profile={profile} isLoading={isLoading} />
+      <ArsenalSection profile={profile} isLoading={isLoading} />
       <SocialSection />
       <Footer />
     </>

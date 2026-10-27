@@ -1,8 +1,19 @@
-export default function LoadingScreen() {
+interface LoadingScreenProps {
+  visible?: boolean;
+  title?: string;
+}
+
+export default function LoadingScreen({
+  visible = true,
+  title = "LOADING...",
+}: LoadingScreenProps) {
   return (
-    <div className="loadingScreen">
+    <div
+      className={`loadingScreen${visible ? "" : " loadingScreenHidden"}`}
+      aria-hidden={!visible}
+    >
       <div className="text-center">
-        <h1 className="loadingTitle">ØRBIT#0B1T</h1>
+        {title ? <h1 className="loadingTitle">{title}</h1> : null}
       </div>
     </div>
   );
