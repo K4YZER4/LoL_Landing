@@ -1,0 +1,253 @@
+.aboutMeSection {
+  position: relative;
+  z-index: 20;
+  overflow: hidden;
+  padding: 8rem 1.5rem;
+  background: #e2dee9;
+}
+
+.aboutMeContainer {
+  position: relative;
+  z-index: 10;
+}
+
+.aboutMeKaneki {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 17rem;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .aboutMeKaneki {
+    width: 25rem;
+  }
+}
+
+.aboutMeHeader {
+  margin-bottom: 4rem;
+}
+
+.aboutMeCard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.aboutMeCopy {
+  max-width: 34rem;
+  padding: 1rem 0;
+}
+
+.aboutMeText {
+  margin: 0;
+  color: rgba(58, 52, 69, 0.72);
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.9;
+}
+
+.musicPlayer {
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.musicPlayerHeading,
+.musicTrack {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.musicPlayerHeading,
+.musicTrackEyebrow,
+.musicPlayerCount,
+.musicTrack {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.musicPlayerHeading {
+  color: #3a3445;
+  margin-bottom: 2rem;
+}
+
+.musicPlayerCount,
+.musicTrackEyebrow {
+  color: rgba(58, 52, 69, 0.48);
+}
+
+.musicPlayerMain {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.musicDisc {
+  position: relative;
+  flex: 0 0 7rem;
+  width: 7rem;
+  height: 7rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: repeating-radial-gradient(circle, #7187ac 0 2px, #879cc0 3px 4px);
+  box-shadow: 0 0.8rem 1.8rem rgba(63, 73, 112, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.musicDisc:hover,
+.musicDisc.isPlaying {
+  box-shadow: 0 0.8rem 2rem rgba(63, 73, 112, 0.4);
+  transform: scale(1.04);
+}
+
+.musicDisc.isPlaying {
+  animation: discSpin 8s linear infinite;
+}
+
+.musicDisc::before,
+.musicDisc::after {
+  position: absolute;
+  content: "";
+  inset: 14%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+}
+
+.musicDisc::after {
+  inset: 43%;
+  border: 0;
+  background: #e2dee9;
+}
+
+.musicDiscLabel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  color: #3a3445;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+}
+
+.musicTrackInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.musicTrackInfo strong {
+  color: #2d2837;
+  font-family: "Epilogue", sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.musicTrackInfo > span:last-child {
+  color: rgba(58, 52, 69, 0.55);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.8rem;
+}
+
+.musicTrackList {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.musicTrack {
+  width: 100%;
+  padding: 0.7rem 0.25rem;
+  border: 0;
+  border-bottom: 1px solid rgba(58, 52, 69, 0.12);
+  color: rgba(58, 52, 69, 0.5);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s ease, padding 0.2s ease;
+}
+
+.musicTrack span:last-child {
+  margin-left: auto;
+  color: inherit;
+  letter-spacing: 0.08em;
+}
+
+.musicTrack:hover,
+.musicTrack.isActive {
+  padding-left: 0.5rem;
+  color: #3e6d9f;
+}
+
+.musicProgress {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.musicProgressBar {
+  width: 100%;
+  height: 3px;
+  appearance: none;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  background: rgba(58, 52, 69, 0.16);
+}
+
+.musicProgressBar::-webkit-slider-thumb {
+  width: 10px;
+  height: 10px;
+  appearance: none;
+  border: 2px solid #e2dee9;
+  border-radius: 50%;
+  background: #3e6d9f;
+  box-shadow: 0 1px 4px rgba(45, 40, 55, 0.25);
+}
+
+.musicProgressBar::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #e2dee9;
+  border-radius: 50%;
+  background: #3e6d9f;
+  box-shadow: 0 1px 4px rgba(45, 40, 55, 0.25);
+}
+
+.musicProgressTimes {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(58, 52, 69, 0.48);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+@keyframes discSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (min-width: 768px) {
+  .aboutMeCard {
+    grid-template-columns: minmax(0, 0.9fr) minmax(25rem, 1.1fr);
+    gap: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .musicDisc.isPlaying { animation: none; }
+}

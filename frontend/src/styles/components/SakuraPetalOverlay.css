@@ -8,7 +8,9 @@
 }
 
 .currentEloSection > .sakuraPetalOverlay,
-.arsenalSection > .sakuraPetalOverlay {
+.arsenalSection > .sakuraPetalOverlay,
+.aboutMeSection > .sakuraPetalOverlay,
+.socialSection > .sakuraPetalOverlay {
   z-index: 5;
 }
 
@@ -38,6 +40,7 @@
     var(--petal-deep, #e77a9d) 100%
   );
   box-shadow: 0 1px 3px rgba(109, 45, 70, 0.12);
+  filter: blur(0.35px);
   opacity: var(--petal-opacity);
   transform-origin: center;
   animation: sakuraPetalRotation var(--rotation-duration) linear infinite;

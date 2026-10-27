@@ -7,6 +7,7 @@ import HeroSection from "./components/sections/HeroSection";
 import CurrentEloSection from "./components/sections/CurrentEloSection";
 import ArsenalSection from "./components/sections/ArsenalSection";
 import SocialSection from "./components/sections/SocialSection";
+import AboutMeSection from "./components/sections/AboutMeSection";
 import { useAccount } from "./hooks/useAccount";
 import { useMatches } from "./hooks/useMatches";
 import { useProfile } from "./hooks/useProfile";
@@ -136,6 +137,7 @@ function App() {
         matchesLoading={matches.isLoading}
         mostPlayedChampions={mostPlayedChampions}
       />
+      <AboutMeSection />
       <SocialSection />
       <Footer />
     </>
