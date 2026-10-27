@@ -33,7 +33,7 @@ export default function CurrentEloSection({
 
         <div className="currentEloCardsGrid">
           <div className="glassPanel currentEloCard">
-            <span className="currentEloCardLabel">Efficiency</span>
+            <span className="currentEloCardLabel">Winrate</span>
             <div className="currentEloValueRow">
               <span className="currentEloValueNumber">{efficiency}</span>
               <span className="currentEloValueUnit">%</span>

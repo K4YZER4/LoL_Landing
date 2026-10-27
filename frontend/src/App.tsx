@@ -7,11 +7,14 @@ import HeroSection from "./components/sections/HeroSection";
 import CurrentEloSection from "./components/sections/CurrentEloSection";
 import ArsenalSection from "./components/sections/ArsenalSection";
 import SocialSection from "./components/sections/SocialSection";
+import { useAccount } from "./hooks/useAccount";
 import { useProfile } from "./hooks/useProfile";
+import { formatRiotId } from "./utils/format";
 
 const MIN_LOADING_TIME_MS = 2500;
 
 function App() {
+  const account = useAccount();
   const { profile, isLoading, error, reload } = useProfile(5);
   const [minimumLoadingTimeElapsed, setMinimumLoadingTimeElapsed] =
     useState(false);
@@ -25,6 +28,11 @@ function App() {
   }, []);
 
   const isShowingLoadingScreen = !minimumLoadingTimeElapsed || isLoading;
+  const loadingTitle = account
+    ? formatRiotId(account.gameName, account.tagLine)
+    : profile
+      ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
+      : "LOADING...";
 
   useEffect(() => {
     const body = document.body;
@@ -137,12 +145,14 @@ function App() {
   }
 
   if (!profile) {
-    return <LoadingScreen visible={isShowingLoadingScreen} />;
+    return (
+      <LoadingScreen visible={isShowingLoadingScreen} title={loadingTitle} />
+    );
   }
 
   return (
     <>
-      <LoadingScreen visible={isShowingLoadingScreen} />
+      <LoadingScreen visible={isShowingLoadingScreen} title={loadingTitle} />
       <Navbar
         gameName={profile.perfil.gameName}
         tagLine={profile.perfil.tagLine}

@@ -1,9 +1,11 @@
 interface LoadingScreenProps {
   visible?: boolean;
+  title?: string;
 }
 
 export default function LoadingScreen({
   visible = true,
+  title = "LOADING...",
 }: LoadingScreenProps) {
   return (
     <div
@@ -11,7 +13,7 @@ export default function LoadingScreen({
       aria-hidden={!visible}
     >
       <div className="text-center">
-        <h1 className="loadingTitle">ØRBIT#0B1T</h1>
+        <h1 className="loadingTitle">{title}</h1>
       </div>
     </div>
   );
