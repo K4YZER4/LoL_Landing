@@ -1,18 +1,23 @@
 import type { ProfileResponse } from "../../types/profile";
 import { formatRoleStat } from "../../utils/format";
+import type { MatchStats } from "../../utils/matchStats";
 import ChampionSlot from "../ui/ChampionSlot";
 
 interface ArsenalSectionProps {
   profile: ProfileResponse | null;
   isLoading: boolean;
+  matchStats: MatchStats;
+  matchesLoading: boolean;
 }
 
 export default function ArsenalSection({
   profile,
   isLoading,
+  matchStats,
+  matchesLoading,
 }: ArsenalSectionProps) {
-  const primaryRole = profile?.stats.primaryRole ?? null;
-  const secondaryRole = profile?.stats.secondaryRole ?? null;
+  const primaryRole = matchStats.primaryRole;
+  const secondaryRole = matchStats.secondaryRole;
   const topChampions = profile?.stats.topChampions ?? [];
   const champions = topChampions.slice(0, 5);
 
@@ -50,7 +55,7 @@ export default function ArsenalSection({
                 <span className="arsenalRoleLabel">Primary Role</span>
               </div>
               <span className="arsenalRoleValue">
-                {isLoading ? "—" : formatRoleStat(primaryRole)}
+                {matchesLoading ? "—" : formatRoleStat(primaryRole)}
               </span>
             </div>
 
@@ -62,7 +67,7 @@ export default function ArsenalSection({
                 <span className="arsenalRoleLabel">Secondary Role</span>
               </div>
               <span className="arsenalRoleValue">
-                {isLoading ? "—" : formatRoleStat(secondaryRole)}
+                {matchesLoading ? "—" : formatRoleStat(secondaryRole)}
               </span>
             </div>
           </div>

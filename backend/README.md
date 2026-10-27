@@ -53,10 +53,12 @@ La API queda en `http://localhost:3001/api`.
 | GET | `/api/league/me` | Solo/Duo y Flex resumidos |
 | GET | `/api/league/raw` | Entradas crudas de League |
 | GET | `/api/mastery/top?count=5` | Top campeones por maestría |
-| GET | `/api/matches?count=5` | Últimas partidas mapeadas |
+| GET | `/api/matches?count=5&start=0` | Partidas mapeadas desde una posición |
 | GET | `/api/profile?count=5` | **Todo unido** para el frontend |
 
-`count` está limitado entre 1 y 10.
+En `/api/matches`, `count` está limitado entre 1 y 20 y `start` debe ser un índice mayor o igual a 0.
+Esto permite cargar 20 partidas con `/api/matches?count=20&start=0` y dividirlas en 4 páginas desde el frontend.
+El endpoint `/api/profile` acepta entre 0 y 10 partidas. Con `count=0` omite la carga de detalles de partidas.
 
 ### Ejemplo
 

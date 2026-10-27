@@ -21,15 +21,29 @@
 
 .historyMatchCardBase {
   opacity: 0.5;
-  transition: opacity 0.3s ease-in-out;
+  transform-origin: center center;
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
 }
 
 .historyMatchCardBase:hover {
+  position: relative;
+  z-index: 2;
   opacity: 1;
+  transform: scale(1.03);
+  box-shadow: 0 1rem 2.5rem rgba(58, 52, 69, 0.1);
 }
 
 .historyMatchCardBase.dimmed {
   opacity: 0.3;
+  transform: scale(0.97);
+}
+
+.historyMatchCard.historyMatchCardBase.dimmed:not(:hover) {
+  opacity: 0.3;
+  transform: scale(0.97);
 }
 
 .historyMatchCard {

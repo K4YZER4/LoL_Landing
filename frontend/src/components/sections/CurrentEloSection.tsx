@@ -1,22 +1,38 @@
-import type { ProfileResponse } from "../../types/profile";
+import { useState } from "react";
+import type { MatchViewModel, ProfileResponse } from "../../types/profile";
 import { formatLp, formatRank } from "../../utils/format";
+import type { MatchStats } from "../../utils/matchStats";
 import MatchHistoryCard from "../ui/MatchHistoryCard";
 
 interface CurrentEloSectionProps {
   profile: ProfileResponse | null;
   isLoading: boolean;
+  matches: MatchViewModel[];
+  matchesLoading: boolean;
+  matchesError: string | null;
+  reloadMatches: () => void;
+  matchStats: MatchStats;
 }
+
+const MATCHES_PER_PAGE = 5;
 
 export default function CurrentEloSection({
   profile,
   isLoading,
+  matches,
+  matchesLoading,
+  matchesError,
+  reloadMatches,
+  matchStats,
 }: CurrentEloSectionProps) {
   const ranked = profile?.ranked;
-  const stats = profile?.stats;
-  const matches = profile?.matches ?? [];
-  const winrate = stats
-    ? Math.min(100, Math.max(0, stats.efficiency))
-    : null;
+  const [currentPage, setCurrentPage] = useState(1);
+  const winrate = matchStats.efficiency;
+  const totalPages = Math.max(1, Math.ceil(matches.length / MATCHES_PER_PAGE));
+  const visibleMatches = matches.slice(
+    (currentPage - 1) * MATCHES_PER_PAGE,
+    currentPage * MATCHES_PER_PAGE,
+  );
 
   return (
     <section className="currentEloSection sectionBlendTop">
@@ -38,7 +54,10 @@ export default function CurrentEloSection({
         </div>
 
         <div className="currentEloCardsGrid">
-          <div className="glassPanel currentEloCard">
+          <button
+            type="button"
+            className="glassPanel currentEloCard currentEloCardSelectable"
+          >
             <span className="currentEloCardLabel">Winrate</span>
             <div className="currentEloValueRow">
               <span className="currentEloValueNumber">{winrate ?? "—"}</span>
@@ -50,9 +69,12 @@ export default function CurrentEloSection({
                 style={{ width: `${winrate ?? 0}%` }}
               ></div>
             </div>
-          </div>
+          </button>
 
-          <div className="glassPanel currentEloCard currentEloCardPrimary">
+          <button
+            type="button"
+            className="glassPanel currentEloCard currentEloCardSelectable currentEloCardPrimary"
+          >
             <span className="currentEloCardLabel">SOLO DUO</span>
             <div className="currentEloRankWrap">
               <span className="currentEloRankTier">
@@ -67,9 +89,12 @@ export default function CurrentEloSection({
                 flare
               </span>
             </div>
-          </div>
+          </button>
 
-          <div className="glassPanel currentEloCard">
+          <button
+            type="button"
+            className="glassPanel currentEloCard currentEloCardSelectable"
+          >
             <span className="currentEloCardLabel">FLEX</span>
             <div className="currentEloRankWrap">
               <span className="currentEloRankTier">
@@ -84,7 +109,7 @@ export default function CurrentEloSection({
                 all_inclusive
               </span>
             </div>
-          </div>
+          </button>
         </div>
 
         <div>
@@ -93,20 +118,74 @@ export default function CurrentEloSection({
             <div className="historyHeaderLine"></div>
           </div>
 
-          {matches.length > 0 ? (
-            matches.map((match, index) => (
+          <div className="historyMatchesList">
+          {visibleMatches.length > 0 ? (
+            visibleMatches.map((match, index) => (
               <MatchHistoryCard
                 key={match.matchId}
                 match={match}
                 index={index}
-                isLast={index === matches.length - 1}
+                isLast={index === visibleMatches.length - 1}
               />
             ))
+          ) : matchesError ? (
+            <div className="historyPaginationError">
+              <p className="historyEmpty">Could not load match history.</p>
+              <button type="button" onClick={reloadMatches}>
+                Retry
+              </button>
+            </div>
           ) : (
             <p className="historyEmpty">
-              {isLoading ? "Loading recent matches..." : "No recent matches."}
+              {matchesLoading || isLoading
+                ? "Loading recent matches..."
+                : "No recent matches."}
             </p>
           )}
+          </div>
+
+          {matches.length > 0 && totalPages > 1 ? (
+            <nav className="historyPagination" aria-label="Match history pages">
+              <button
+                type="button"
+                className="historyPaginationArrow"
+                onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+                disabled={currentPage === 1}
+                aria-label="Previous page"
+              >
+                ←
+              </button>
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (page) => (
+                  <button
+                    type="button"
+                    className={
+                      page === currentPage
+                        ? "historyPaginationPage active"
+                        : "historyPaginationPage"
+                    }
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    aria-label={`Page ${page}`}
+                    aria-current={page === currentPage ? "page" : undefined}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
+              <button
+                type="button"
+                className="historyPaginationArrow"
+                onClick={() =>
+                  setCurrentPage((page) => Math.min(totalPages, page + 1))
+                }
+                disabled={currentPage === totalPages}
+                aria-label="Next page"
+              >
+                →
+              </button>
+            </nav>
+          ) : null}
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ export class ProfileController {
   getProfile(@Query('count') count?: string): Promise<ProfileResponse> {
     const parsed = Number(count ?? 5);
     const safeCount = Number.isFinite(parsed)
-      ? Math.min(Math.max(Math.trunc(parsed), 1), 10)
+      ? Math.min(Math.max(Math.trunc(parsed), 0), 10)
       : 5;
 
     return this.profileService.getProfile(safeCount);

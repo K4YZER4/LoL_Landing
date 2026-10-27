@@ -25,7 +25,7 @@ export class ProfileService {
       this.summoner.getMe(),
       this.league.getRanked(),
       this.mastery.getTop(5),
-      this.matches.getRecent(count),
+      count > 0 ? this.matches.getRecent(count) : Promise.resolve([]),
     ]);
 
     const profileIconUrl = await this.ddragon.profileIconUrl(

@@ -5,7 +5,7 @@ export function getProfile(
   count = 5,
   signal?: AbortSignal,
 ): Promise<ProfileResponse> {
-  const safeCount = Math.min(10, Math.max(1, count));
+  const safeCount = Math.min(10, Math.max(0, count));
 
   return apiFetch<ProfileResponse>(`/profile?count=${safeCount}`, signal);
 }
