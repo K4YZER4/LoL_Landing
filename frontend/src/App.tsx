@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import LoadingScreen from "./components/layout/LoadingScreen";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import DataError from "./components/layout/DataError";
@@ -13,21 +14,31 @@ import { formatRiotId } from "./utils/format";
 function App() {
   const account = useAccount();
   const { profile, isLoading, error, reload } = useProfile(5);
+  const [introFinished, setIntroFinished] = useState(false);
   const displayName = account
     ? formatRiotId(account.gameName, account.tagLine)
     : profile
       ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
       : "—";
+  const isShowingIntro = !introFinished;
+
+  useEffect(() => {
+    const introTimeout = window.setTimeout(() => {
+      setIntroFinished(true);
+    }, 2500);
+
+    return () => window.clearTimeout(introTimeout);
+  }, []);
 
   useEffect(() => {
     const body = document.body;
     body.classList.add("appBody", "appScrollbar");
-    body.classList.remove("loading");
+    body.classList.toggle("loading", isShowingIntro);
 
     return () => {
       body.classList.remove("appBody", "appScrollbar", "loading");
     };
-  }, []);
+  }, [isShowingIntro]);
 
   useEffect(() => {
     if (!profile) {
@@ -124,6 +135,7 @@ function App() {
 
   return (
     <>
+      <LoadingScreen visible={isShowingIntro} title={displayName} />
       <Navbar displayName={displayName} />
       <HeroSection displayName={displayName} level={profile?.perfil.level ?? null} />
       <CurrentEloSection profile={profile} isLoading={isLoading} />
