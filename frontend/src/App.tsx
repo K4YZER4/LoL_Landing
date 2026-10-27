@@ -19,7 +19,7 @@ function App() {
     ? formatRiotId(account.gameName, account.tagLine)
     : profile
       ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
-      : "—";
+      : "";
   const isShowingIntro = !introFinished;
 
   useEffect(() => {

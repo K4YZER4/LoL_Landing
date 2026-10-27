@@ -13,7 +13,7 @@ export default function LoadingScreen({
       aria-hidden={!visible}
     >
       <div className="text-center">
-        <h1 className="loadingTitle">{title}</h1>
+        {title ? <h1 className="loadingTitle">{title}</h1> : null}
       </div>
     </div>
   );
