@@ -32,6 +32,46 @@
   transition: all 0.2s;
 }
 
+.currentEloCardSelectable {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.currentEloCardSelectable.currentEloCardPrimary {
+  border-top: 2px solid rgba(184, 172, 207, 0.4);
+}
+
+.currentEloCardSelectable:hover,
+.currentEloCardSelectable:focus-visible {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.currentEloCardSelectable:focus-visible {
+  outline: 2px solid rgba(184, 172, 207, 0.85);
+  outline-offset: 4px;
+}
+
+.currentEloCardSelected {
+  position: relative;
+  z-index: 2;
+  transform: scale(1.04);
+  box-shadow: 0 1rem 2.5rem rgba(58, 52, 69, 0.12);
+}
+
+.currentEloCardDimmed {
+  transform: scale(0.96);
+  opacity: 0.62;
+}
+
 .currentEloCard:hover {
   background: rgba(255, 255, 255, 0.4);
 }
