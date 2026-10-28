@@ -1,5 +1,4 @@
 import type { ProfileResponse } from "../../types/profile";
-import { formatRoleStat } from "../../utils/format";
 import type { MatchStats } from "../../utils/matchStats";
 import type { MostPlayedChampion } from "../../utils/matchStats";
 import ChampionSlot from "../ui/ChampionSlot";
@@ -25,6 +24,18 @@ export default function ArsenalSection({
   const secondaryRole = matchStats.secondaryRole;
   const topChampions = profile?.stats.topChampions ?? [];
   const champions = topChampions.slice(0, 5);
+
+  const roleIcon = (role: string | null | undefined) => {
+    const roleIcons: Record<string, string> = {
+      TOP: "top.svg",
+      JUNGLE: "jungle.svg",
+      MIDDLE: "mid.svg",
+      BOTTOM: "adc.svg",
+      UTILITY: "support.svg",
+    };
+
+    return role ? roleIcons[role] : undefined;
+  };
 
   return (
     <section className="arsenalSection sectionBlendTop">
@@ -52,26 +63,46 @@ export default function ArsenalSection({
 
             <div className="arsenalRoleBlock">
               <div className="arsenalRoleHeader">
-                <span className="material-symbols-outlined text-primary text-xl">
-                  location_on
-                </span>
                 <span className="arsenalRoleLabel">Primary Role</span>
               </div>
-              <span className="arsenalRoleValue">
-                {matchesLoading ? "—" : formatRoleStat(primaryRole)}
-              </span>
+              <div className="arsenalRoleValue">
+                {matchesLoading ? (
+                  "—"
+                ) : primaryRole ? (
+                  <>
+                    <img
+                      src={`/assets/${roleIcon(primaryRole.role)}`}
+                      alt={primaryRole.role}
+                      className="arsenalRoleIcon"
+                    />
+                    <span>{primaryRole.winrate}% WR</span>
+                  </>
+                ) : (
+                  "NO DATA"
+                )}
+              </div>
             </div>
 
             <div>
               <div className="arsenalRoleHeader">
-                <span className="material-symbols-outlined text-primary text-xl">
-                  hub
-                </span>
                 <span className="arsenalRoleLabel">Secondary Role</span>
               </div>
-              <span className="arsenalRoleValue">
-                {matchesLoading ? "—" : formatRoleStat(secondaryRole)}
-              </span>
+              <div className="arsenalRoleValue">
+                {matchesLoading ? (
+                  "—"
+                ) : secondaryRole ? (
+                  <>
+                    <img
+                      src={`/assets/${roleIcon(secondaryRole.role)}`}
+                      alt={secondaryRole.role}
+                      className="arsenalRoleIcon"
+                    />
+                    <span>{secondaryRole.winrate}% WR</span>
+                  </>
+                ) : (
+                  "NO DATA"
+                )}
+              </div>
             </div>
           </div>
 

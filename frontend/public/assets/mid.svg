@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="Ícono de rol MID de League of Legends">
+  <title>Rol MID</title>
+  <!--SVG auténtico sin fondo: únicamente color lavanda (#B9ADD0) y transparencia.--><g id="icono" fill="none" stroke="#B9ADD0" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round" transform="translate(57.500 25.690) scale(0.876068)">
+    <path d="M 233 2 L 231 0 L 197 1 L 176 23 L 163 33 L 163 35 L 0 194 L 0 228 L 35 228 L 233 35 Z" fill="#B9ADD0" stroke-width="1.8"/>
+    <path d="M 233 50 L 190 93 L 189 187 L 93 187 L 51 228 L 233 228 Z" fill="none"/>
+    <path d="M 181 1 L 1 1 L 1 181 L 44 138 L 44 42 L 137 43 Z" fill="none"/>
+  </g>
+  <text id="nombre-rol" x="160" y="282" text-anchor="middle" fill="#B9ADD0" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="22" letter-spacing="5">MID</text>
+  <path d="M 101 300 H 146 M 174 300 H 219" stroke="#B9ADD0" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 160 294 L 166 300 L 160 306 L 154 300 Z" stroke="#B9ADD0" stroke-width="1.25" fill="none" stroke-linejoin="round"/>
+</svg>

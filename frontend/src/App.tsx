@@ -8,24 +8,20 @@ import CurrentEloSection from "./components/sections/CurrentEloSection";
 import ArsenalSection from "./components/sections/ArsenalSection";
 import SocialSection from "./components/sections/SocialSection";
 import AboutMeSection from "./components/sections/AboutMeSection";
-import { useAccount } from "./hooks/useAccount";
 import { useMatches } from "./hooks/useMatches";
 import { useProfile } from "./hooks/useProfile";
 import { formatRiotId } from "./utils/format";
 import { getMatchStats, getMostPlayedChampions } from "./utils/matchStats";
 
 function App() {
-  const account = useAccount();
+  const [introFinished, setIntroFinished] = useState(false);
   const { profile, isLoading, error, reload } = useProfile(0);
-  const matches = useMatches(20);
+  const matches = useMatches(20, introFinished);
   const matchStats = getMatchStats(matches.matches);
   const mostPlayedChampions = getMostPlayedChampions(matches.matches);
-  const [introFinished, setIntroFinished] = useState(false);
-  const displayName = account
-    ? formatRiotId(account.gameName, account.tagLine)
-    : profile
-      ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
-      : "";
+  const displayName = profile
+    ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
+    : "";
   const isShowingIntro = !introFinished;
 
   useEffect(() => {
@@ -110,34 +106,11 @@ function App() {
 
       heroSection.style.transform = `scaleX(${heroScaleX}) translateZ(0)`;
 
-      if (currentEloSection) {
-        const currentEloScaleX = 0.95 + scrollPercentage * 0.05;
-        currentEloSection.style.transform = `scaleX(${currentEloScaleX}) translateZ(0)`;
-      }
-
       if (scrollPercentage >= 0.85) {
         navbarTitle?.classList.add("visible");
       } else {
         navbarTitle?.classList.remove("visible");
       }
-
-      const sectionPairs = [
-        [currentEloSection, arsenalSection],
-      ];
-
-      sectionPairs.forEach(([prev, next]) => {
-        if (!prev || !next) return;
-        const nextTop = next.getBoundingClientRect().top;
-        const transitionDistance = window.innerHeight * 0.55;
-        const start = window.innerHeight;
-        const end = window.innerHeight - transitionDistance;
-        const progress = Math.min(
-          Math.max((start - nextTop) / (start - end), 0),
-          1,
-        );
-        const prevScaleX = 1 - progress * 0.06;
-        prev.style.transform = `scaleX(${prevScaleX}) translateZ(0)`;
-      });
 
       if (arsenalSection) {
         arsenalSection.style.transform = "scaleX(1) translateZ(0)";

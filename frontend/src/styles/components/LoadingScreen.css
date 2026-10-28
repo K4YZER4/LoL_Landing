@@ -27,7 +27,7 @@
   font-size: clamp(3rem, 12vw, 15rem);
   font-weight: 900;
   letter-spacing: 0.2em;
-  background-image: url("/assets/kanekiBackground.gif");
+  background-image: url("/assets/kanekiBackground_pingpong.gif");
   background-size: cover;
   background-position: center;
   -webkit-background-clip: text;

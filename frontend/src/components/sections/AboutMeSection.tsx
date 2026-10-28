@@ -80,6 +80,16 @@ export default function AboutMeSection() {
   return (
     <section className="aboutMeSection sectionBlendTop">
       <SakuraPetalOverlay lightColor="#b7d9f4" deepColor="#5d8fc7" />
+      <video
+        className="aboutMeVideoBackground"
+        src="/assets/blue_flowers_video_pingpong.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
       <img
         src="/assets/kanekiSinFondo1.png"
         alt="Kaneki"
