@@ -23,6 +23,12 @@
     infinite;
 }
 
+.sakuraPetalOverlay:not(.is-visible) .sakuraPetalFall,
+.sakuraPetalOverlay:not(.is-visible) .sakuraPetalSway,
+.sakuraPetalOverlay:not(.is-visible) .sakuraPetal {
+  animation-play-state: paused;
+}
+
 .sakuraPetalSway {
   display: block;
   animation: sakuraPetalSway var(--sway-duration) ease-in-out infinite

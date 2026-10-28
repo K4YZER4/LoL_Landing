@@ -64,7 +64,12 @@ function App() {
     const aboutMeSection = document.querySelector<HTMLElement>(".aboutMeSection");
     const socialSection = document.querySelector<HTMLElement>(".socialSection");
     const navbarTitle = document.querySelector<HTMLElement>("#navbar-title");
+    if (!heroSection) return;
+
     let animationFrame = 0;
+    let heroHeight = heroSection.offsetHeight;
+    let previousHeroScale = -1;
+    let previousNavbarVisibility = false;
 
     const sections = [
       { el: currentEloSection, cls: "fade-in" },
@@ -97,29 +102,19 @@ function App() {
     });
 
     const updateScrollEffects = () => {
-      if (!heroSection) return;
-
       const scrollPosition = window.scrollY;
-      const heroHeight = heroSection.offsetHeight;
       const scrollPercentage = Math.min(scrollPosition / (heroHeight * 0.6), 1);
       const heroScaleX = 1 - scrollPercentage * 0.05;
 
-      heroSection.style.transform = `scaleX(${heroScaleX}) translateZ(0)`;
-
-      if (scrollPercentage >= 0.85) {
-        navbarTitle?.classList.add("visible");
-      } else {
-        navbarTitle?.classList.remove("visible");
+      if (heroScaleX !== previousHeroScale) {
+        heroSection.style.transform = `scaleX(${heroScaleX}) translateZ(0)`;
+        previousHeroScale = heroScaleX;
       }
 
-      if (arsenalSection) {
-        arsenalSection.style.transform = "scaleX(1) translateZ(0)";
-      }
-      if (aboutMeSection) {
-        aboutMeSection.style.transform = "scaleX(1) translateZ(0)";
-      }
-      if (socialSection) {
-        socialSection.style.transform = "scaleX(1) translateZ(0)";
+      const shouldShowNavbarTitle = scrollPercentage >= 0.85;
+      if (shouldShowNavbarTitle !== previousNavbarVisibility) {
+        previousNavbarVisibility = shouldShowNavbarTitle;
+        navbarTitle?.classList.toggle("visible", shouldShowNavbarTitle);
       }
     };
 
@@ -132,11 +127,18 @@ function App() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    const handleResize = () => {
+      heroHeight = heroSection.offsetHeight;
+      previousHeroScale = -1;
+      updateScrollEffects();
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
     updateScrollEffects();
 
     return () => {
       fadeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
       }
