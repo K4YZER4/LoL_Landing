@@ -6,6 +6,7 @@
 
 /* 3) Component styles (one file per component) */
 @import "./styles/components/ArsenalSection.css";
+@import "./styles/components/AboutMeSection.css";
 @import "./styles/components/CurrentEloSection.css";
 @import "./styles/components/DataError.css";
 @import "./styles/components/Footer.css";
@@ -14,3 +15,4 @@
 @import "./styles/components/LoadingScreen.css";
 @import "./styles/components/Navbar.css";
 @import "./styles/components/SocialSection.css";
+@import "./styles/components/SakuraPetalOverlay.css";

@@ -6,23 +6,33 @@
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   background: #e2dee9;
+  overflow: hidden;
 }
 
-.socialSectionKaneki {
+.socialSectionSimon {
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 3;
-  width: 17rem;
+  width: 15rem;
   height: auto;
   object-fit: contain;
+  filter: blur(0.5px);
   pointer-events: none;
   user-select: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 52%, rgba(0, 0, 0, 0.82) 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 52%, rgba(0, 0, 0, 0.82) 70%, transparent 100%);
+  filter: blur(0.7px);
+}
+
+.socialSection > .sectionContainer {
+  position: relative;
+  z-index: 10;
 }
 
 @media (min-width: 768px) {
-  .socialSectionKaneki {
-    width: 25rem;
+  .socialSectionSimon {
+    width: 24rem;
   }
 }
 
