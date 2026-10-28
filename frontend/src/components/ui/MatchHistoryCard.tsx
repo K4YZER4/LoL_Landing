@@ -52,6 +52,8 @@ export default function MatchHistoryCard({
               src={match.championIconUrl}
               alt={match.championName}
               className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           ) : null}
         </div>
@@ -82,6 +84,8 @@ export default function MatchHistoryCard({
                   src={slotUrl}
                   alt="match-slot"
                   className="historyMatchItemImage"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : null}
             </div>

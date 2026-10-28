@@ -17,6 +17,8 @@ export default function ChampionSlot({ champion }: ChampionSlotProps) {
             src={champion.iconUrl}
             alt={champion.championName}
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         ) : null}
       </div>

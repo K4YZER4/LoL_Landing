@@ -68,6 +68,7 @@ function App() {
     const aboutMeSection = document.querySelector<HTMLElement>(".aboutMeSection");
     const socialSection = document.querySelector<HTMLElement>(".socialSection");
     const navbarTitle = document.querySelector<HTMLElement>("#navbar-title");
+    let animationFrame = 0;
 
     const sections = [
       { el: currentEloSection, cls: "fade-in" },
@@ -99,7 +100,7 @@ function App() {
       }
     });
 
-    const handleScroll = () => {
+    const updateScrollEffects = () => {
       if (!heroSection) return;
 
       const scrollPosition = window.scrollY;
@@ -149,12 +150,23 @@ function App() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    const handleScroll = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        updateScrollEffects();
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateScrollEffects();
 
     return () => {
       fadeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
     };
   }, [profile]);
 

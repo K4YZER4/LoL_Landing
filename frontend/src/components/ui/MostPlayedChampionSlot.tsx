@@ -15,6 +15,8 @@ export default function MostPlayedChampionSlot({
             src={champion.iconUrl}
             alt={champion.championName}
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         ) : null}
       </div>

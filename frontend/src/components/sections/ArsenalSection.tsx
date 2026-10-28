@@ -28,7 +28,7 @@ export default function ArsenalSection({
 
   return (
     <section className="arsenalSection sectionBlendTop">
-      <video className="sectionBackgroundVideo" autoPlay muted loop>
+      <video className="sectionBackgroundVideo" autoPlay muted loop playsInline preload="metadata">
         <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
       </video>
       <div className="sectionColorOverlay"></div>
@@ -37,6 +37,8 @@ export default function ArsenalSection({
         src="/assets/KanekiSinFondo2.png"
         alt="Kaneki"
         className="arsenalSectionKaneki"
+        loading="lazy"
+        decoding="async"
       />
       <div className="sectionContainer">
         <div className="sectionBlockGap">
