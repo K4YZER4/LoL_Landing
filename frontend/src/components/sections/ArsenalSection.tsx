@@ -4,6 +4,7 @@ import type { MostPlayedChampion } from "../../utils/matchStats";
 import ChampionSlot from "../ui/ChampionSlot";
 import MostPlayedChampionSlot from "../ui/MostPlayedChampionSlot";
 import SakuraPetalOverlay from "../layout/SakuraPetalOverlay";
+import BackgroundVideo from "../ui/BackgroundVideo";
 
 interface ArsenalSectionProps {
   profile: ProfileResponse | null;
@@ -39,9 +40,10 @@ export default function ArsenalSection({
 
   return (
     <section className="arsenalSection sectionBlendTop">
-      <video className="sectionBackgroundVideo" autoPlay muted loop playsInline preload="metadata">
-        <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
-      </video>
+      <BackgroundVideo
+        className="sectionBackgroundVideo"
+        src="/assets/bakgrounFlores.mp4"
+      />
       <div className="sectionColorOverlay"></div>
       <SakuraPetalOverlay lightColor="#c9e4f7" deepColor="#6e9ed1" />
       <img

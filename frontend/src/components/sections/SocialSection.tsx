@@ -1,19 +1,14 @@
 import SocialLink from "../ui/SocialLink";
 import SakuraPetalOverlay from "../layout/SakuraPetalOverlay";
+import BackgroundVideo from "../ui/BackgroundVideo";
 
 export default function SocialSection() {
   return (
     <section className="socialSection sectionBlendTop">
       <SakuraPetalOverlay lightColor="#a5cbed" deepColor="#4b78b4" />
-      <video
+      <BackgroundVideo
         className="socialSectionVideoBackground"
         src="/assets/bluew_flowers_connect_pingpong.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
       />
       <img
         src="/assets/simon.png"

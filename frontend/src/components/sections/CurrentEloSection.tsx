@@ -4,6 +4,7 @@ import { formatLp, formatRank } from "../../utils/format";
 import type { MatchStats } from "../../utils/matchStats";
 import MatchHistoryCard from "../ui/MatchHistoryCard";
 import SakuraPetalOverlay from "../layout/SakuraPetalOverlay";
+import BackgroundVideo from "../ui/BackgroundVideo";
 
 interface CurrentEloSectionProps {
   profile: ProfileResponse | null;
@@ -37,9 +38,10 @@ export default function CurrentEloSection({
 
   return (
     <section className="currentEloSection sectionBlendTop">
-      <video className="sectionBackgroundVideo" autoPlay muted loop playsInline preload="metadata">
-        <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
-      </video>
+      <BackgroundVideo
+        className="sectionBackgroundVideo"
+        src="/assets/bakgrounFlores.mp4"
+      />
       <div className="sectionColorOverlay"></div>
       <SakuraPetalOverlay lightColor="#efd9f1" deepColor="#a99bd6" />
       <div className="sectionContainer">

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 const PETAL_COUNT = 109;
@@ -62,10 +62,26 @@ export default function SakuraPetalOverlay({
   deepColor,
 }: SakuraPetalOverlayProps) {
   const petals = useMemo(() => createPetals(count), [count]);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const overlay = overlayRef.current;
+    if (!overlay) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(Boolean(entry?.isIntersecting)),
+      { rootMargin: "120px 0px", threshold: 0.01 },
+    );
+    observer.observe(overlay);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
-      className="sakuraPetalOverlay"
+      ref={overlayRef}
+      className={`sakuraPetalOverlay${isVisible ? " is-visible" : ""}`}
       aria-hidden="true"
       style={
         {
