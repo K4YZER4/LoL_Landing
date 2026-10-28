@@ -2,6 +2,27 @@
   overflow: hidden;
 }
 
+.arsenalSection video.sectionBackgroundVideo {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 10%,
+    black 24%,
+    black 76%,
+    rgba(0, 0, 0, 0.35) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 10%,
+    black 24%,
+    black 76%,
+    rgba(0, 0, 0, 0.35) 90%,
+    transparent 100%
+  );
+}
+
 .arsenalGrid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -40,15 +61,25 @@
   margin-bottom: 1rem;
 }
 
+.arsenalRoleIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  opacity: 0.72;
+}
+
 .arsenalRoleLabel {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.4em;
   color: rgba(58, 52, 69, 0.6);
   text-transform: uppercase;
 }
 
 .arsenalRoleValue {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
   font-family: "Epilogue", sans-serif;
   font-size: 1.25rem;
   font-weight: 300;

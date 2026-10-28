@@ -37,7 +37,7 @@ export default function CurrentEloSection({
 
   return (
     <section className="currentEloSection sectionBlendTop">
-      <video className="sectionBackgroundVideo" autoPlay muted loop>
+      <video className="sectionBackgroundVideo" autoPlay muted loop playsInline preload="metadata">
         <source src="/assets/bakgrounFlores.mp4" type="video/mp4" />
       </video>
       <div className="sectionColorOverlay"></div>

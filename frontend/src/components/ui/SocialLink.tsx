@@ -2,11 +2,12 @@ import socialIconMap from "./socialIconMap";
 
 interface SocialLinkProps {
   label: keyof typeof socialIconMap;
+  href: string;
 }
 
-export default function SocialLink({ label }: SocialLinkProps) {
+export default function SocialLink({ label, href }: SocialLinkProps) {
   return (
-    <a href="#" className="group glassPanel socialLinkButton">
+    <a href={href} target="_blank" rel="noreferrer" className="group glassPanel socialLinkButton">
       <span className="material-symbols-outlined socialLinkIcon">
         {socialIconMap[label]}
       </span>

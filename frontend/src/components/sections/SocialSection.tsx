@@ -5,10 +5,22 @@ export default function SocialSection() {
   return (
     <section className="socialSection sectionBlendTop">
       <SakuraPetalOverlay lightColor="#a5cbed" deepColor="#4b78b4" />
+      <video
+        className="socialSectionVideoBackground"
+        src="/assets/bluew_flowers_connect_pingpong.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
       <img
         src="/assets/simon.png"
         alt="Simon"
         className="socialSectionSimon"
+        loading="lazy"
+        decoding="async"
       />
       <div className="sectionContainer">
         <div className="socialSectionHeader">
@@ -21,10 +33,10 @@ export default function SocialSection() {
         </div>
 
         <div className="socialLinksRow">
-          <SocialLink label="Twitter" />
-          <SocialLink label="Instagram" />
-          <SocialLink label="Discord" />
-          <SocialLink label="LinkedIn" />
+          <SocialLink label="Instagram" href="https://www.instagram.com/k4yz3r4_/" />
+          <SocialLink label="Discord" href="https://discord.com/users/517047496845819921" />
+          <SocialLink label="GitHub" href="https://github.com/K4YZER4" />
+          <SocialLink label="X" href="https://twitter.com/K4YZER4" />
         </div>
       </div>
     </section>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="Ícono de rol SUPPORT de League of Legends">
+  <title>Rol SUPPORT</title>
+  <!--SVG auténtico sin fondo: únicamente color lavanda (#B9ADD0) y transparencia.--><g id="icono" fill="none" stroke="#B9ADD0" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round" transform="translate(57.500 40.714) scale(0.782443)">
+    <path d="M 122 77 L 98 192 L 128 217 L 132 217 L 162 192 L 138 77 L 130 85 Z" fill="#B9ADD0" stroke-width="1.8"/>
+    <path d="M 261 46 L 176 46 L 153 68 L 169 123 L 207 107 L 187 79 L 188 76 L 205 76 L 224 70 Z" fill="#B9ADD0" stroke-width="1.8"/>
+    <path d="M 0 46 L 18 60 L 38 71 L 55 76 L 72 76 L 73 79 L 53 107 L 91 123 L 107 68 L 84 46 Z" fill="#B9ADD0" stroke-width="1.8"/>
+    <path d="M 91 15 L 130 60 L 169 15 L 160 0 L 100 0 Z" fill="#B9ADD0" stroke-width="1.8"/>
+  </g>
+  <text id="nombre-rol" x="160" y="282" text-anchor="middle" fill="#B9ADD0" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="22" letter-spacing="5">SUPPORT</text>
+  <path d="M 101 300 H 146 M 174 300 H 219" stroke="#B9ADD0" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 160 294 L 166 300 L 160 306 L 154 300 Z" stroke="#B9ADD0" stroke-width="1.25" fill="none" stroke-linejoin="round"/>
+</svg>

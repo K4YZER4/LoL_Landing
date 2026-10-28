@@ -14,11 +14,13 @@ const initialState: MatchesState = {
   error: null,
 };
 
-export function useMatches(count = 20) {
+export function useMatches(count = 20, enabled = true) {
   const [state, setState] = useState<MatchesState>(initialState);
   const [reloadToken, setReloadToken] = useState(0);
 
   useEffect(() => {
+    if (!enabled) return;
+
     const controller = new AbortController();
 
     getMatches(count, 0, controller.signal)
@@ -39,7 +41,7 @@ export function useMatches(count = 20) {
       });
 
     return () => controller.abort();
-  }, [count, reloadToken]);
+  }, [count, enabled, reloadToken]);
 
   const reload = useCallback(() => {
     setState((current) => ({

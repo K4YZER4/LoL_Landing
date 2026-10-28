@@ -19,6 +19,7 @@ export default function AboutMeSection() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [selectedTrack, setSelectedTrack] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.7);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -67,13 +68,34 @@ export default function AboutMeSection() {
     setCurrentTime(nextTime);
   };
 
+  const handleVolumeChange = (value: string) => {
+    const nextVolume = Number(value);
+    if (!Number.isFinite(nextVolume)) return;
+    setVolume(nextVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = nextVolume;
+    }
+  };
+
   return (
     <section className="aboutMeSection sectionBlendTop">
       <SakuraPetalOverlay lightColor="#b7d9f4" deepColor="#5d8fc7" />
+      <video
+        className="aboutMeVideoBackground"
+        src="/assets/blue_flowers_video_pingpong.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
       <img
         src="/assets/kanekiSinFondo1.png"
         alt="Kaneki"
         className="aboutMeKaneki"
+        loading="lazy"
+        decoding="async"
       />
       <div className="sectionContainer aboutMeContainer">
         <div className="aboutMeHeader">
@@ -93,6 +115,22 @@ export default function AboutMeSection() {
             <div className="musicPlayerHeading">
               <span>Music I Like</span>
               <span className="musicPlayerCount">{String(selectedTrack + 1).padStart(2, "0")} / 05</span>
+            </div>
+
+            <div className="musicVolume">
+              <span className="material-symbols-outlined musicVolumeIcon">
+                {volume === 0 ? "volume_off" : "volume_up"}
+              </span>
+              <input
+                className="musicVolumeBar"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                aria-label="Music volume"
+                onChange={(event) => handleVolumeChange(event.target.value)}
+              />
             </div>
 
             <div className="musicPlayerMain">
@@ -146,8 +184,12 @@ export default function AboutMeSection() {
             <audio
               ref={audioRef}
               src={track.src}
+              onCanPlay={(event) => {
+                event.currentTarget.volume = volume;
+              }}
               onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
               onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
+              preload="none"
               onEnded={() => {
                 setIsPlaying(false);
                 setCurrentTime(0);

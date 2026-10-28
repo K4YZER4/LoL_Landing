@@ -5,7 +5,7 @@ import { MatchMapper } from './match.mapper.js';
 import { MatchViewModel, RiotMatchDto } from './match.types.js';
 
 const MATCH_DETAIL_CONCURRENCY = 4;
-const MATCH_CACHE_TTL_MS = 60_000;
+const MATCH_CACHE_TTL_MS = 135_000;
 
 interface MatchCacheEntry {
   expiresAt: number;
