@@ -1,0 +1,87 @@
+.sakuraPetalOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+
+.currentEloSection > .sakuraPetalOverlay,
+.arsenalSection > .sakuraPetalOverlay,
+.aboutMeSection > .sakuraPetalOverlay,
+.socialSection > .sakuraPetalOverlay {
+  z-index: 5;
+}
+
+.sakuraPetalFall {
+  position: absolute;
+  top: var(--petal-top);
+  left: var(--petal-left);
+  display: block;
+  animation: sakuraPetalFall var(--fall-duration) linear var(--fall-delay)
+    infinite;
+}
+
+.sakuraPetalSway {
+  display: block;
+  animation: sakuraPetalSway var(--sway-duration) ease-in-out infinite
+    alternate;
+}
+
+.sakuraPetal {
+  display: block;
+  width: var(--petal-size, 15px);
+  height: calc(var(--petal-size, 15px) * 0.68);
+  border-radius: 85% 15% 75% 25%;
+  background: linear-gradient(
+    135deg,
+    var(--petal-light, #f9c5d5) 0%,
+    var(--petal-deep, #e77a9d) 100%
+  );
+  box-shadow: 0 1px 3px rgba(109, 45, 70, 0.12);
+  filter: blur(0.35px);
+  opacity: var(--petal-opacity);
+  transform-origin: center;
+  animation: sakuraPetalRotation var(--rotation-duration) linear infinite;
+}
+
+@keyframes sakuraPetalFall {
+  from {
+    transform: translate3d(-60px, -100px, 0);
+  }
+
+  to {
+    transform: translate3d(160px, calc(100vh + 120px), 0);
+  }
+}
+
+@keyframes sakuraPetalSway {
+  from {
+    transform: translateX(-45px);
+  }
+
+  to {
+    transform: translateX(45px);
+  }
+}
+
+@keyframes sakuraPetalRotation {
+  0% {
+    transform: rotate(0deg) rotateY(0deg) scale(var(--petal-scale));
+  }
+
+  50% {
+    transform: rotate(170deg) rotateY(65deg) scale(var(--petal-scale));
+  }
+
+  100% {
+    transform: rotate(360deg) rotateY(0deg) scale(var(--petal-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sakuraPetalOverlay {
+    display: none;
+  }
+}

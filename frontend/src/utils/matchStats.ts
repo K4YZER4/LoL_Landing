@@ -1,5 +1,13 @@
 import type { MatchViewModel, RoleStat } from "../types/profile";
 
+export interface MostPlayedChampion {
+  championName: string;
+  iconUrl: string;
+  games: number;
+  wins: number;
+  winrate: number;
+}
+
 export interface MatchStats {
   efficiency: number | null;
   primaryRole: RoleStat | null;
@@ -36,4 +44,43 @@ export function getMatchStats(matches: MatchViewModel[]): MatchStats {
     primaryRole: roleStats[0] ?? null,
     secondaryRole: roleStats[1] ?? null,
   };
+}
+
+export function getMostPlayedChampions(
+  matches: MatchViewModel[],
+): MostPlayedChampion[] {
+  const champions = new Map<
+    string,
+    MostPlayedChampion & { firstPlayedIndex: number }
+  >();
+
+  matches.forEach((match, index) => {
+    const current = champions.get(match.championName) ?? {
+      championName: match.championName,
+      iconUrl: match.championIconUrl,
+      games: 0,
+      wins: 0,
+      winrate: 0,
+      firstPlayedIndex: index,
+    };
+
+    current.games += 1;
+    if (match.win) current.wins += 1;
+    champions.set(match.championName, current);
+  });
+
+  return [...champions.values()]
+    .filter((champion) => champion.games >= 2)
+    .sort(
+      (first, second) =>
+        second.games - first.games ||
+        first.firstPlayedIndex - second.firstPlayedIndex,
+    )
+    .map((champion) => ({
+      championName: champion.championName,
+      iconUrl: champion.iconUrl,
+      games: champion.games,
+      wins: champion.wins,
+      winrate: Math.round((champion.wins / champion.games) * 100),
+    }));
 }

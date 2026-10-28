@@ -11,6 +11,11 @@ export default function HeroSection({
     <section className="heroSection">
       <div className="heroSectionBackground"></div>
       <div className="heroSectionOverlay"></div>
+      <SakuraPetalOverlay
+        count={HERO_PETAL_COUNT}
+        lightColor="#f9c5d5"
+        deepColor="#e77a9d"
+      />
       <div className="heroSectionContent">
         <div className="heroSectionTitleWrap">
           <h1 className="heroSectionTitle heroTitleOutline">
@@ -27,3 +32,6 @@ export default function HeroSection({
     </section>
   );
 }
+import SakuraPetalOverlay, {
+  HERO_PETAL_COUNT,
+} from "../layout/SakuraPetalOverlay";

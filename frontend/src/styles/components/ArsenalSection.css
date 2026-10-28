@@ -1,3 +1,7 @@
+.arsenalSection {
+  overflow: hidden;
+}
+
 .arsenalGrid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -57,6 +61,50 @@
   gap: 1rem;
 }
 
+.arsenalMostPlayed {
+  margin-top: 4rem;
+}
+
+.arsenalPlayedChampion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.arsenalPlayedChampionIcon {
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.arsenalPlayedChampionName,
+.arsenalPlayedChampionMeta {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.arsenalPlayedChampionName {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  color: rgba(58, 52, 69, 0.62);
+}
+
+.arsenalPlayedChampionMeta {
+  margin-top: 0.35rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 8px;
+  color: rgba(58, 52, 69, 0.4);
+}
+
 .arsenalEmpty {
   grid-column: 1 / -1;
   font-family: "Manrope", sans-serif;
@@ -67,7 +115,7 @@
 .arsenalSectionKaneki {
   position: absolute;
   left: auto;
-  right: -9rem;
+  right: -3rem;
   bottom: 0;
   z-index: 3;
   width: 17rem;
@@ -75,11 +123,14 @@
   object-fit: contain;
   pointer-events: none;
   user-select: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 52%, rgba(0, 0, 0, 0.82) 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 52%, rgba(0, 0, 0, 0.82) 70%, transparent 100%);
+  filter: blur(0.7px);
 }
 
 @media (min-width: 768px) {
   .arsenalSectionKaneki {
-    right: -14rem;
+    right: -7rem;
     width: 35rem;
   }
 }
