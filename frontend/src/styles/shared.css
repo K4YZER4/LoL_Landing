@@ -11,6 +11,7 @@
   position: relative;
   transition: background-color 3s ease-in-out;
   transform-origin: center center;
+  will-change: transform;
 }
 
 .sectionContainer {
@@ -108,9 +109,25 @@ video.sectionBackgroundVideo::before {
   opacity: 1;
 }
 
+.sectionColorOverlay.stronger {
+  background: rgba(226, 222, 233, 0.95);
+}
+
 .currentEloSection.fade-in .sectionColorOverlay,
 .arsenalSection.fade-in .sectionColorOverlay {
   opacity: 0.97;
+}
+
+.sectionForegroundGif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  opacity: 1;
+  pointer-events: none;
 }
 
 .currentEloSection.fade-in video.sectionBackgroundVideo::before,
@@ -139,27 +156,4 @@ video.sectionBackgroundVideo::before {
   );
   pointer-events: none;
   z-index: 4;
-}
-
-@media (max-width: 768px) {
-  .currentEloSection::before,
-  .arsenalSection::before {
-    background-attachment: scroll;
-  }
-
-  .glassPanel {
-    backdrop-filter: blur(10px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .currentEloSection,
-  .arsenalSection,
-  .aboutMeSection,
-  .socialSection,
-  .currentEloSection::before,
-  .arsenalSection::before,
-  .sectionColorOverlay {
-    transition: none;
-  }
 }

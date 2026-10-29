@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="footerContainer">
         <p className="footerThankYou">Thank you for visiting.</p>
         <p className="footerText">
-          © 2026 K4YZ3R4.
+          © 2026 ØRBIT PROJECT.
         </p>
       </div>
     </footer>

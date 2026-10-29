@@ -11,6 +11,10 @@ const ROLE_LABELS: Record<string, string> = {
 
 const APEX_TIERS = new Set(["MASTER", "GRANDMASTER", "CHALLENGER"]);
 
+export function formatRiotId(gameName: string, tagLine: string): string {
+  return `${gameName}#${tagLine}`;
+}
+
 export function formatRank(queue: RankedQueue | null): string {
   if (!queue) {
     return "UNRANKED";
