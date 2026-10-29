@@ -1,17 +1,17 @@
-﻿import { useEffect, useState } from "react";
+﻿import { lazy, Suspense, useEffect, useState } from "react";
 import LoadingScreen from "./components/layout/LoadingScreen";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import DataError from "./components/layout/DataError";
 import HeroSection from "./components/sections/HeroSection";
 import CurrentEloSection from "./components/sections/CurrentEloSection";
-import ArsenalSection from "./components/sections/ArsenalSection";
-import SocialSection from "./components/sections/SocialSection";
-import AboutMeSection from "./components/sections/AboutMeSection";
 import { useMatches } from "./hooks/useMatches";
 import { useProfile } from "./hooks/useProfile";
-import { formatRiotId } from "./utils/format";
 import { getMatchStats, getMostPlayedChampions } from "./utils/matchStats";
+
+const ArsenalSection = lazy(() => import("./components/sections/ArsenalSection"));
+const AboutMeSection = lazy(() => import("./components/sections/AboutMeSection"));
+const SocialSection = lazy(() => import("./components/sections/SocialSection"));
 
 function App() {
   const [introFinished, setIntroFinished] = useState(false);
@@ -19,9 +19,7 @@ function App() {
   const matches = useMatches(20, introFinished);
   const matchStats = getMatchStats(matches.matches);
   const mostPlayedChampions = getMostPlayedChampions(matches.matches);
-  const displayName = profile
-    ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
-    : "";
+  const displayName = "K4YZ3R4";
   const isShowingIntro = !introFinished;
 
   useEffect(() => {
@@ -143,7 +141,7 @@ function App() {
         window.cancelAnimationFrame(animationFrame);
       }
     };
-  }, [profile]);
+  }, [profile, introFinished]);
 
   if (error && !profile) {
     return <DataError message={error} onRetry={reload} />;
@@ -163,15 +161,17 @@ function App() {
         reloadMatches={matches.reload}
         matchStats={matchStats}
       />
-      <ArsenalSection
-        profile={profile}
-        isLoading={isLoading}
-        matchStats={matchStats}
-        matchesLoading={matches.isLoading}
-        mostPlayedChampions={mostPlayedChampions}
-      />
-      <AboutMeSection />
-      <SocialSection />
+      <Suspense fallback={null}>
+        <ArsenalSection
+          profile={profile}
+          isLoading={isLoading}
+          matchStats={matchStats}
+          matchesLoading={matches.isLoading}
+          mostPlayedChampions={mostPlayedChampions}
+        />
+        <AboutMeSection />
+        <SocialSection />
+      </Suspense>
       <Footer />
     </>
   );
