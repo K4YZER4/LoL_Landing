@@ -13,7 +13,11 @@ const tracks: Track[] = [
   { title: "Take Me Out", artist: "Franz Ferdinand", src: "/assets/music/track-02.mp3" },
   { title: "Up From the Bottom", artist: "Linkin Park", src: "/assets/music/track-03.mp3" },
   { title: "Live My Life", artist: "HEARTSTEEL", src: "/assets/music/track-04.mp3" },
-  { title: "Drowning Love", artist: "Chasing Kou", src: "/assets/music/track-05.mp3" },
+  {
+    title: "Runaway Baby",
+    artist: "Bruno Mars",
+    src: "/assets/music/Bruno Mars - Runaway Baby (Official Lyric Video).mp3",
+  },
 ];
 
 export default function AboutMeSection() {
