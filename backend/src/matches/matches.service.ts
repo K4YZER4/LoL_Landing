@@ -3,23 +3,20 @@ import { ConfigService } from '@nestjs/config';
 import { RiotHttpService } from '../riot/riot-http.service.js';
 import { MatchMapper } from './match.mapper.js';
 import { MatchViewModel, RiotMatchDto } from './match.types.js';
+import { CacheService } from '../cache/cache.service.js';
 
 const MATCH_DETAIL_CONCURRENCY = 4;
-const MATCH_CACHE_TTL_MS = 135_000;
-
-interface MatchCacheEntry {
-  expiresAt: number;
-  value: Promise<MatchViewModel[]>;
-}
+const MATCH_PERSISTENT_CACHE_TTL_MS = 30_000;
 
 @Injectable()
 export class MatchesService {
   private readonly puuid: string;
-  private readonly cache = new Map<string, MatchCacheEntry>();
+  private readonly refreshes = new Map<string, Promise<MatchViewModel[]>>();
 
   constructor(
     private readonly riot: RiotHttpService,
     private readonly mapper: MatchMapper,
+    private readonly cache: CacheService,
     config: ConfigService,
   ) {
     this.puuid = config.getOrThrow<string>('OWNER_PUUID');
@@ -27,24 +24,38 @@ export class MatchesService {
 
   async getRecent(count = 5, start = 0): Promise<MatchViewModel[]> {
     const cacheKey = `${start}:${count}`;
-    const cached = this.cache.get(cacheKey);
-
-    if (cached && cached.expiresAt > Date.now()) {
-      return cached.value;
+    const persistentKey = `matches:${cacheKey}`;
+    const cached = await this.cache.read<MatchViewModel[]>(persistentKey);
+    if (cached) {
+      return cached;
     }
 
-    const value = this.fetchRecent(count, start);
-    this.cache.set(cacheKey, {
-      expiresAt: Date.now() + MATCH_CACHE_TTL_MS,
-      value,
-    });
+    const stale = await this.cache.readStale<MatchViewModel[]>(persistentKey);
+    const refresh = this.refreshes.get(persistentKey) ?? this.refresh(count, start, persistentKey);
 
-    void value.catch(() => {
-      if (this.cache.get(cacheKey)?.value === value) {
-        this.cache.delete(cacheKey);
-      }
-    });
+    if (stale) {
+      void refresh.catch(() => undefined);
+      return stale;
+    }
 
+    return refresh;
+  }
+
+  private refresh(
+    count: number,
+    start: number,
+    cacheKey: string,
+  ): Promise<MatchViewModel[]> {
+    const value = this.fetchRecent(count, start)
+      .then(async (matches) => {
+        await this.cache.write(cacheKey, matches, MATCH_PERSISTENT_CACHE_TTL_MS);
+        return matches;
+      })
+      .finally(() => {
+        this.refreshes.delete(cacheKey);
+      });
+
+    this.refreshes.set(cacheKey, value);
     return value;
   }
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { getMatches } from "../api/matches";
+import { DEMO_MATCHES } from "../data/demo";
 import type { MatchViewModel } from "../types/profile";
 
 interface MatchesState {
@@ -32,11 +33,14 @@ export function useMatches(count = 20, enabled = true) {
           return;
         }
 
+        console.warn(
+          "No se pudieron cargar las partidas; se usa el snapshot de demostración.",
+          error,
+        );
         setState({
-          matches: [],
+          matches: DEMO_MATCHES,
           isLoading: false,
-          error:
-            error instanceof Error ? error.message : "Unknown API error",
+          error: null,
         });
       });
 
