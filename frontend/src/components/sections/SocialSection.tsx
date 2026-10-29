@@ -31,7 +31,7 @@ export default function SocialSection() {
           <SocialLink label="Instagram" href="https://www.instagram.com/k4yz3r4_/" />
           <SocialLink label="Discord" href="https://discord.com/users/517047496845819921" />
           <SocialLink label="GitHub" href="https://github.com/K4YZER4" />
-          <SocialLink label="X" href="https://twitter.com/K4YZER4" />
+          <SocialLink label="X" href="https://x.com/K4YZ3R4" />
         </div>
       </div>
     </section>

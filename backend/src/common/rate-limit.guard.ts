@@ -5,7 +5,14 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import type { Request } from 'express';
+
+interface RateLimitRequest {
+  route?: { path?: unknown };
+  path?: string;
+  ip?: string;
+  method?: string;
+  socket?: { remoteAddress?: string };
+}
 
 interface RouteLimit {
   max: number;
@@ -30,8 +37,8 @@ export class RateLimitGuard implements CanActivate {
   private readonly buckets = new Map<string, Bucket>();
 
   canActivate(context: ExecutionContext): boolean {
-    const request = context.switchToHttp().getRequest<Request>();
-    const routePath = request.route?.path?.toString() ?? request.path;
+    const request = context.switchToHttp().getRequest<RateLimitRequest>();
+    const routePath = request.route?.path?.toString() ?? request.path ?? '';
 
     if (routePath === '/health') {
       return true;
@@ -40,7 +47,7 @@ export class RateLimitGuard implements CanActivate {
     const routeLimit =
       ROUTE_LIMITS.find((entry) => routePath.endsWith(entry.path))?.limit ??
       DEFAULT_LIMIT;
-    const clientKey = `${request.ip ?? request.socket.remoteAddress ?? 'unknown'}:${request.method}:${routePath}`;
+    const clientKey = `${request.ip ?? request.socket?.remoteAddress ?? 'unknown'}:${request.method}:${routePath}`;
     const now = Date.now();
     const current = this.buckets.get(clientKey);
     const bucket =
