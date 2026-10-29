@@ -99,7 +99,7 @@ export default function AboutMeSection() {
       <div className="sectionContainer aboutMeContainer">
         <div className="aboutMeHeader">
           <h2 className="sectionTitle">About Me</h2>
-          <p className="sectionSubTitle">ABOUT ME</p>
+          <p className="sectionSubTitle">A LITTLE BIT ABOUT ME</p>
         </div>
 
         <div className="aboutMeCard">

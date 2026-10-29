@@ -75,6 +75,7 @@
 .aboutMeCopy {
   max-width: 34rem;
   padding: 1rem 0;
+  transform: translateY(-3rem);
 }
 
 .aboutMeText {
