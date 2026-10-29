@@ -22,9 +22,7 @@ export default function SocialSection() {
           <h2 className="socialSectionTitle">
             Connect
           </h2>
-          <p className="socialSectionSubTitle">
-            STAY UPDATED WITH MY JOURNEY
-          </p>
+          <p className="socialSectionSubTitle" aria-hidden="true" />
         </div>
 
         <div className="socialLinksRow">

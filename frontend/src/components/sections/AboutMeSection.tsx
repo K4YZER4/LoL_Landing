@@ -13,7 +13,11 @@ const tracks: Track[] = [
   { title: "Take Me Out", artist: "Franz Ferdinand", src: "/assets/music/track-02.mp3" },
   { title: "Up From the Bottom", artist: "Linkin Park", src: "/assets/music/track-03.mp3" },
   { title: "Live My Life", artist: "HEARTSTEEL", src: "/assets/music/track-04.mp3" },
-  { title: "Drowning Love", artist: "Chasing Kou", src: "/assets/music/track-05.mp3" },
+  {
+    title: "Runaway Baby",
+    artist: "Bruno Mars",
+    src: "/assets/music/Bruno Mars - Runaway Baby (Official Lyric Video).mp3",
+  },
 ];
 
 export default function AboutMeSection() {
@@ -95,14 +99,16 @@ export default function AboutMeSection() {
       <div className="sectionContainer aboutMeContainer">
         <div className="aboutMeHeader">
           <h2 className="sectionTitle">About Me</h2>
-          <p className="sectionSubTitle">A LITTLE BIT ABOUT THE PLAYER</p>
+          <p className="sectionSubTitle">ABOUT ME</p>
         </div>
 
         <div className="aboutMeCard">
           <div className="aboutMeCopy">
             <p className="aboutMeText">
-              League of Legends player focused on improving every game, refining
-              the details and enjoying the journey along the way.
+              Hello, I&apos;m Horacio. I&apos;m 20 years old and I&apos;m currently
+              studying Software Engineering. I enjoy programming, playing League
+              of Legends, going to the gym, listening to music, and watching anime
+              such as Tokyo Ghoul, Gurren Lagann, and Hunter × Hunter.
             </p>
           </div>
 
