@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { getProfile } from "../api/profile";
+import { DEMO_PROFILE } from "../data/demo";
 import type { ProfileResponse } from "../types/profile";
 
 interface ProfileState {
@@ -30,11 +31,14 @@ export function useProfile(count = 5) {
           return;
         }
 
+        console.warn(
+          "No se pudo cargar el perfil; se usa el snapshot de demostración.",
+          error,
+        );
         setState({
-          profile: null,
+          profile: DEMO_PROFILE,
           isLoading: false,
-          error:
-            error instanceof Error ? error.message : "Unknown API error",
+          error: null,
         });
       });
 

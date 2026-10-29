@@ -11,11 +11,20 @@ export class CacheService {
     process.env.CACHE_FILE_PATH ?? 'data/cache.json',
   );
   private readonly ready: Promise<void>;
+  private readonly localEnabled = process.env.VERCEL !== '1';
   private data: CacheFile = {};
   private writeQueue: Promise<void> = Promise.resolve();
 
   constructor(private readonly blob: BlobCacheStore) {
-    this.ready = this.load();
+    // En Vercel el filesystem es de solo lectura: escribir el JSON local solo
+    // agrega latencia y errores. Blob y RAM siguen funcionando.
+    this.ready = this.localEnabled ? this.load() : Promise.resolve();
+
+    if (!this.localEnabled && !this.blob.isEnabled) {
+      this.logger.warn(
+        'Sin Blob ni persistencia local: el caché quedará solo en RAM.',
+      );
+    }
   }
 
   async read<T>(key: string): Promise<T | null> {
@@ -69,10 +78,13 @@ export class CacheService {
     this.writeQueue = this.writeQueue
       .catch(() => undefined)
       .then(async () => {
-        await Promise.allSettled([
-          this.persist(),
-          this.blob.write(key, entry),
-        ]);
+        const tasks: Array<Promise<unknown>> = [this.blob.write(key, entry)];
+
+        if (this.localEnabled) {
+          tasks.push(this.persist());
+        }
+
+        await Promise.allSettled(tasks);
       });
 
     await this.writeQueue.catch((error: unknown) => {

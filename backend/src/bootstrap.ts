@@ -7,6 +7,10 @@ export async function createApp() {
 
   app.setGlobalPrefix('api');
 
+  // Vercel entrega la IP real en X-Forwarded-For; sin esto todos los
+  // visitantes comparten el mismo bucket del rate limit.
+  app.getHttpAdapter().getInstance().set('trust proxy', 1);
+
   const config = app.get(ConfigService);
   const configuredOrigins = config.get<string>('FRONTEND_ORIGIN');
   const origins = configuredOrigins

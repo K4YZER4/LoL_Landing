@@ -9,6 +9,10 @@ export class BlobCacheStore {
   private readonly logger = new Logger(BlobCacheStore.name);
   private readonly enabled = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
+  get isEnabled(): boolean {
+    return this.enabled;
+  }
+
   async read<T>(key: string): Promise<CacheEntry<T> | null> {
     if (!this.enabled) return null;
 
