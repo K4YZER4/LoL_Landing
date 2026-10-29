@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller.js';
 import { RiotModule } from './riot/riot.module.js';
@@ -9,10 +10,13 @@ import { LeagueModule } from './league/league.module.js';
 import { MasteryModule } from './mastery/mastery.module.js';
 import { MatchesModule } from './matches/matches.module.js';
 import { ProfileModule } from './profile/profile.module.js';
+import { CacheModule } from './cache/cache.module.js';
+import { RateLimitGuard } from './common/rate-limit.guard.js';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    CacheModule,
     RiotModule,
     DdragonModule,
     AccountModule,
@@ -23,5 +27,6 @@ import { ProfileModule } from './profile/profile.module.js';
     ProfileModule,
   ],
   controllers: [AppController],
+  providers: [{ provide: APP_GUARD, useClass: RateLimitGuard }],
 })
 export class AppModule {}

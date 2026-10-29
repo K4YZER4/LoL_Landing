@@ -7,6 +7,9 @@ import { MatchViewModel } from '../matches/match.types.js';
 import { MatchesService } from '../matches/matches.service.js';
 import { SummonerService } from '../summoner/summoner.service.js';
 import { ProfileChampion, ProfileResponse, RoleStat } from './profile.types.js';
+import { CacheService } from '../cache/cache.service.js';
+
+const PROFILE_CACHE_TTL_MS = 20_000;
 
 @Injectable()
 export class ProfileService {
@@ -17,9 +20,48 @@ export class ProfileService {
     private readonly mastery: MasteryService,
     private readonly matches: MatchesService,
     private readonly ddragon: DdragonService,
+    private readonly cache: CacheService,
   ) {}
 
+  private readonly refreshes = new Map<string, Promise<ProfileResponse>>();
+
   async getProfile(count = 5): Promise<ProfileResponse> {
+    const cacheKey = `profile:${count}`;
+    const cached = await this.cache.read<ProfileResponse>(cacheKey);
+    if (cached) {
+      return cached;
+    }
+
+    const stale = await this.cache.readStale<ProfileResponse>(cacheKey);
+    const refresh =
+      this.refreshes.get(cacheKey) ?? this.refreshProfile(count, cacheKey);
+
+    if (stale) {
+      void refresh.catch(() => undefined);
+      return stale;
+    }
+
+    return refresh;
+  }
+
+  private async refreshProfile(
+    count: number,
+    cacheKey: string,
+  ): Promise<ProfileResponse> {
+    const refresh = this.fetchProfile(count)
+      .then(async (profile) => {
+        await this.cache.write(cacheKey, profile, PROFILE_CACHE_TTL_MS);
+        return profile;
+      })
+      .finally(() => {
+        this.refreshes.delete(cacheKey);
+      });
+
+    this.refreshes.set(cacheKey, refresh);
+    return refresh;
+  }
+
+  private async fetchProfile(count: number): Promise<ProfileResponse> {
     const [account, summoner, ranked, mastery, matches] = await Promise.all([
       this.account.getMe(),
       this.summoner.getMe(),
