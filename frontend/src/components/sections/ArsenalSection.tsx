@@ -42,7 +42,7 @@ export default function ArsenalSection({
     <section className="arsenalSection sectionBlendTop">
       <BackgroundVideo
         className="sectionBackgroundVideo"
-        src="/assets/bakgrounFlores.mp4"
+        src="/assets/pool-of-champions-background.mp4"
       />
       <div className="sectionColorOverlay"></div>
       <SakuraPetalOverlay lightColor="#c9e4f7" deepColor="#6e9ed1" />

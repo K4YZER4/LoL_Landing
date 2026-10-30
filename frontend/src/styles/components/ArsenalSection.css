@@ -2,6 +2,10 @@
   overflow: hidden;
 }
 
+.arsenalSection.fade-in .sectionColorOverlay {
+  opacity: 0.62;
+}
+
 .arsenalSection video.sectionBackgroundVideo {
   -webkit-mask-image: linear-gradient(
     to bottom,

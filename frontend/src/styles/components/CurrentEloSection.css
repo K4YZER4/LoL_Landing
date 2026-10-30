@@ -19,6 +19,10 @@
   );
 }
 
+.currentEloSection.fade-in .sectionColorOverlay {
+  opacity: 0.72;
+}
+
 .currentEloHeader {
   display: flex;
   flex-direction: column;
