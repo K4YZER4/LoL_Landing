@@ -12,7 +12,7 @@ export default function LoadingScreen({
       className={`loadingScreen${visible ? "" : " loadingScreenHidden"}`}
       aria-hidden={!visible}
     >
-      <div className="text-center">
+      <div className="loadingScreenContent">
         {title ? <h1 className="loadingTitle">{title}</h1> : null}
       </div>
     </div>

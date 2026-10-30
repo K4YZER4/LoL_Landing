@@ -37,10 +37,20 @@ export default function AboutMeSection() {
     audio.load();
     setCurrentTime(0);
     setDuration(0);
+    // Loading is only needed when the selected source changes. Pausing must not
+    // reload the element and reset the current position.
+  }, [selectedTrack]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
       void audio.play().catch(() => setIsPlaying(false));
+    } else {
+      audio.pause();
     }
-  }, [selectedTrack, isPlaying]);
+  }, [isPlaying, selectedTrack]);
 
   const togglePlayback = () => {
     const audio = audioRef.current;

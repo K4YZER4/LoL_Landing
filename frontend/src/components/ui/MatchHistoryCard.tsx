@@ -51,7 +51,7 @@ export default function MatchHistoryCard({
             <img
               src={match.championIconUrl}
               alt={match.championName}
-              className="w-full h-full object-cover"
+            className="imageCover"
               loading="lazy"
               decoding="async"
             />
@@ -67,7 +67,7 @@ export default function MatchHistoryCard({
         </div>
       </div>
       <div className="historyMatchCenter">
-        <div className="text-center">
+        <div className="matchHistoryRatioText">
           <span className={`historyMatchRatio ${ratioVariant}`}>
             {match.kills} / {match.deaths} / {match.assists}
           </span>
