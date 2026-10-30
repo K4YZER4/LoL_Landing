@@ -14,6 +14,57 @@ body {
   color: #3a3445;
 }
 
+.imageCover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loadingScreenContent,
+.matchHistoryRatioText {
+  text-align: center;
+}
+
+.championSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.championSlotIcon {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.championSlotName,
+.championSlotMeta {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.championSlotName {
+  font-size: 9px;
+  color: rgba(58, 52, 69, 0.6);
+}
+
+.championSlotMeta {
+  margin-top: 0.25rem;
+  font-size: 8px;
+  color: rgba(58, 52, 69, 0.4);
+}
+
+.socialIconSvg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }

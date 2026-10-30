@@ -14,7 +14,7 @@ export default function MostPlayedChampionSlot({
           <img
             src={champion.iconUrl}
             alt={champion.championName}
-            className="w-full h-full object-cover"
+            className="imageCover"
             loading="lazy"
             decoding="async"
           />

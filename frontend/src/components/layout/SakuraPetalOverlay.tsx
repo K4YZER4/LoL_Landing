@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 const PETAL_COUNT = 109;
@@ -56,7 +56,7 @@ function createPetals(count: number): PetalConfig[] {
   });
 }
 
-export default function SakuraPetalOverlay({
+function SakuraPetalOverlay({
   count = PETAL_COUNT,
   lightColor,
   deepColor,
@@ -100,5 +100,7 @@ export default function SakuraPetalOverlay({
     </div>
   );
 }
+
+export default memo(SakuraPetalOverlay);
 
 export { HERO_PETAL_COUNT, PETAL_COUNT, PETAL_SIZE };

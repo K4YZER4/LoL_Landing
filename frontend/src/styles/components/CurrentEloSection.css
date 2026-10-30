@@ -54,7 +54,7 @@
 .currentEloCard {
   position: relative;
   padding: 2.5rem;
-  transition: all 0.2s;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .currentEloCardSelectable {

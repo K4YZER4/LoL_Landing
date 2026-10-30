@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import LoadingScreen from "./components/layout/LoadingScreen";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -17,8 +17,11 @@ function App() {
   const [introFinished, setIntroFinished] = useState(false);
   const { profile, isLoading, error, reload } = useProfile(0);
   const matches = useMatches(20, introFinished);
-  const matchStats = getMatchStats(matches.matches);
-  const mostPlayedChampions = getMostPlayedChampions(matches.matches);
+  const matchStats = useMemo(() => getMatchStats(matches.matches), [matches.matches]);
+  const mostPlayedChampions = useMemo(
+    () => getMostPlayedChampions(matches.matches),
+    [matches.matches],
+  );
   const displayName = profile
     ? formatRiotId(profile.perfil.gameName, profile.perfil.tagLine)
     : "";
