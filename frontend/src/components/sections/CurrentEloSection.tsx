@@ -40,7 +40,7 @@ export default function CurrentEloSection({
     <section className="currentEloSection sectionBlendTop">
       <BackgroundVideo
         className="sectionBackgroundVideo"
-        src="/assets/bakgrounFlores.mp4"
+        src="/assets/current-elo-background.mp4"
       />
       <div className="sectionColorOverlay"></div>
       <SakuraPetalOverlay lightColor="#efd9f1" deepColor="#a99bd6" />
